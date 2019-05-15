@@ -24,5 +24,17 @@ namespace Chessgame
         {
             InitializeComponent();
         }
+
+        private void BtnStart_Click(object sender, RoutedEventArgs e)
+        {
+            grdStartup.Visibility = Visibility.Hidden;
+            grdGameBoard.Visibility = Visibility.Visible;
+        }
+
+        private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
+        {
+            grdGameBoard.Visibility = Visibility.Hidden;
+ 
+        }
     }
 }

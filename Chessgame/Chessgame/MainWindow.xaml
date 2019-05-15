@@ -1,12 +1,17 @@
-﻿<Window x:Class="Chessgame.MainWindow"
+﻿<Window x:Name="wdwChessgame" x:Class="Chessgame.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chessgame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Chessgame" Height="450" Width="800" Loaded="WdwChessgame_Loaded">
     <Grid>
-        
+        <Grid x:Name="grdStartup" HorizontalAlignment="Left" Height="400" Margin="235,10,0,0" VerticalAlignment="Top" Width="300">
+            <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Height="42" Margin="56,157,0,0" VerticalAlignment="Top" Width="188" Click="BtnStart_Click"/>
+            <Label Content="Chess" HorizontalAlignment="Left" Height="50" Margin="109,56,0,0" VerticalAlignment="Top" Width="60" FontSize="16" FontWeight="Bold"/>
+        </Grid>
+        <Grid x:Name="grdGameBoard" HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="772"/>
     </Grid>
+
 </Window>

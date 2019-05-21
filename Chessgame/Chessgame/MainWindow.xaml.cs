@@ -24,23 +24,31 @@ namespace Chessgame
         {
             InitializeComponent();
         }
+
+        void SwitchToGrid(Grid gridToShow, Grid gridToHide)
+        {
+            gridToHide.Visibility = Visibility.Hidden;
+            gridToShow.Visibility = Visibility.Visible;
+        }
+
+        void CenterGrid(Grid gridToCenter)
+        {
+            gridToCenter.HorizontalAlignment = HorizontalAlignment.Center;
+            gridToCenter.VerticalAlignment = VerticalAlignment.Center;
+            gridToCenter.Margin = new Thickness(0);
+        }
         
         private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
-            grdChessGame.Visibility = Visibility.Hidden;
-            grdStartUp.HorizontalAlignment = HorizontalAlignment.Center;
-            grdStartUp.VerticalAlignment = VerticalAlignment.Center;
-            grdStartUp.Margin = new Thickness(0);
+            CenterGrid(grdStartUp);
+            CenterGrid(grdChessGame);
+            SwitchToGrid(grdStartUp, grdChessGame);
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            grdStartup.Visibility = Visibility.Hidden;
-            grdChessGame.Visibility = Visibility.Visible;
-            grdChessGame.HorizontalAlignment = HorizontalAlignment.Center;
-            grdChessGame.VerticalAlignment = VerticalAlignment.Center;
-            grdChessGame.Margin = new Thickness(0);
+            SwitchToGrid(grdChessGame, grdStartUp);
         }
     }
 }

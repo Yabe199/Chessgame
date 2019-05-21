@@ -50,5 +50,13 @@ namespace Chessgame
         {
             SwitchToGrid(grdChessGame, grdStartUp);
         }
+
+        private void btnChangePosition_Click(object sender, RoutedEventArgs e)
+        {
+            int Column = int.Parse(txtColumn.Text),
+                Row = int.Parse(txtRow.Text);
+            Grid.SetColumn(testtest, Column -1);
+            Grid.SetRow(testtest, Row -1);
+        }
     }
 }

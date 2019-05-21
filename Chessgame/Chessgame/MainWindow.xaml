@@ -64,14 +64,15 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
                     <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
                 <Rectangle x:Name="testtest" Fill="#FFE42727" Height="75" Width="75" Grid.Column="0" Grid.Row="0"/>
             </Grid>

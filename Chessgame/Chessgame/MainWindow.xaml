@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="Chessgame" Height="900" Width="2400" Loaded="WdwChessgame_Loaded" MinWidth="3">
     <Grid>
-        <Grid x:Name="grdStartup" HorizontalAlignment="Left" Height="400" Margin="235,10,0,0" VerticalAlignment="Top" Width="300"/>
         <Grid x:Name="grdStartUp" HorizontalAlignment="Left" Height="850" Margin="10,10,0,0" VerticalAlignment="Top" Width="1174">
             <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Center" Height="30" Margin="0,100,0,0" VerticalAlignment="Center" Width="120" Grid.Row="1" Click="btnStart_Click"/>
             <Label Content="Chess" HorizontalAlignment="Center" Height="30" Margin="377,0,377,200" VerticalAlignment="Center" Width="120" HorizontalContentAlignment="Center" FontWeight="Bold" TextOptions.TextFormattingMode="Display" Grid.Row="1"/>
@@ -53,29 +52,29 @@
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="812,500,0,0" VerticalAlignment="Top" Width="75"/>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="812,650,0,0" VerticalAlignment="Top" Width="75"/>
             <Grid x:Name="grdChessBoard" HorizontalAlignment="Left" Height="600" Margin="287,125,0,0" VerticalAlignment="Top" Width="600">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Rectangle x:Name="testtest" Fill="#FFE42727" Height="75" Width="75" Grid.Column="0" Grid.Row="0"/>
-            </Grid>
-            <Button x:Name="btnChangePosition" Content="Change position" HorizontalAlignment="Left" Height="32" Margin="115,776,0,0" VerticalAlignment="Top" Width="171" Click="btnChangePosition_Click"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Rectangle x:Name="testtest" Fill="#FFE42727" Height="75" Width="75" Grid.Column="0" Grid.Row="0" MouseMove="testtest_MouseMove"/>
+        </Grid>
+        <Button x:Name="btnChangePosition" Content="Change position" HorizontalAlignment="Left" Height="32" Margin="115,776,0,0" VerticalAlignment="Top" Width="171" Click="btnChangePosition_Click"/>
             <Label Content="Column" HorizontalAlignment="Left" Height="32" Margin="326,776,0,0" VerticalAlignment="Top" Width="74"/>
             <TextBox x:Name="txtColumn" HorizontalAlignment="Left" Height="32" Margin="400,776,0,0" TextWrapping="Wrap" Text="number" VerticalAlignment="Top" Width="89"/>
             <Label Content="Row" HorizontalAlignment="Left" Height="32" Margin="550,776,0,0" VerticalAlignment="Top" Width="74"/>

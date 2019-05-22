@@ -58,5 +58,10 @@ namespace Chessgame
             Grid.SetColumn(testtest, Column -1);
             Grid.SetRow(testtest, Row -1);
         }
+
+        private void testtest_MouseMove (object sender, MouseEventArgs e)
+        {
+            
+        }
     }
 }

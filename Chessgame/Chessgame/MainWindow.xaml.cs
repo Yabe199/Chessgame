@@ -37,6 +37,38 @@ namespace Chessgame
             gridToCenter.VerticalAlignment = VerticalAlignment.Center;
             gridToCenter.Margin = new Thickness(0);
         }
+
+        void CreateChessBoard()
+        {
+            int totalIndex = 0;
+
+            for (int rowIndex = 0; rowIndex < 8; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < 8; columnIndex++)
+                {
+                    string rectangleName;
+                    Rectangle rectangle = new Rectangle();
+
+                    rectangleName = $"{(char)(65 + columnIndex)}{rowIndex}";
+                    totalIndex++;
+
+                    rectangle.Name = rectangleName;
+                    rectangle.AllowDrop = true;
+                    if ((columnIndex + rowIndex)%2 == 0)
+                    {
+                        rectangle.Fill = Brushes.Black;
+                    }
+                    else
+                    {
+                        rectangle.Fill = Brushes.LightGray;
+                    }
+
+                    grdChessBoard.Children.Add(rectangle);
+                    Grid.SetColumn(rectangle, columnIndex);
+                    Grid.SetRow(rectangle, rowIndex);
+                }
+            }
+        }
         
         private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
         {
@@ -44,24 +76,12 @@ namespace Chessgame
             CenterGrid(grdStartUp);
             CenterGrid(grdChessGame);
             SwitchToGrid(grdStartUp, grdChessGame);
+            CreateChessBoard();
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             SwitchToGrid(grdChessGame, grdStartUp);
-        }
-
-        private void btnChangePosition_Click(object sender, RoutedEventArgs e)
-        {
-            int Column = int.Parse(txtColumn.Text),
-                Row = int.Parse(txtRow.Text);
-            Grid.SetColumn(testtest, Column -1);
-            Grid.SetRow(testtest, Row -1);
-        }
-
-        private void testtest_MouseMove (object sender, MouseEventArgs e)
-        {
-            
         }
     }
 }

@@ -46,60 +46,57 @@ namespace Chessgame
             {
                 for (int columnIndex = 0; columnIndex < 8; columnIndex++)
                 {
-                    string rectangleName;
-                    Rectangle rectangle = new Rectangle();
+                    string labelName;
+                    Label label = new Label();
 
-                    rectangleName = $"{(char)(65 + columnIndex)}{rowIndex + 1}";
+                    labelName = $"{(char)(65 + columnIndex)}{rowIndex + 1}";
                     totalIndex++;
 
-                    rectangle.Name = rectangleName;
-                    rectangle.AllowDrop = true;
-                    if ((columnIndex + rowIndex)%2 == 0)
-                    {
-                        rectangle.Fill = Brushes.Black;
-                    }
-                    else
-                    {
-                        rectangle.Fill = Brushes.LightGray;
-                    }
+                    label.Name = labelName;
+                    label.AllowDrop = true;
+                    label.Content = labelName;
+                    label.HorizontalContentAlignment = HorizontalAlignment.Center;
+                    label.VerticalContentAlignment = VerticalAlignment.Center;
+                    label.Foreground = Brushes.DarkGray;
 
-                    grdChessBoard.Children.Add(rectangle);
-                    Grid.SetColumn(rectangle, columnIndex);
-                    Grid.SetRow(rectangle, rowIndex);
-                    rectangle.Drop += BoardPosition_Drop;
-                    rectangle.MouseMove += BoardPosition_MouseMove;
+                    grdChessBoard.Children.Add(label);
+                    Grid.SetColumn(label, columnIndex);
+                    Grid.SetRow(label, rowIndex);
+                    label.Drop += BoardPosition_Drop;
+                    label.MouseMove += BoardPosition_MouseMove;
                 }
             }
         }
+        Label previousLabel;
+        string previousContent;
 
         private void BoardPosition_Drop(object sender, DragEventArgs e)
         {
-            Rectangle rectangle = sender as Rectangle;
+            Label label = sender as Label;
 
-            if (rectangle != null)
+            previousLabel.Content = label.Content;
+
+            if (label != null)
             {
                 if (e.Data.GetDataPresent(DataFormats.StringFormat))
                 {
                     string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
-                    BrushConverter converter = new BrushConverter();
-
-                    if (converter.IsValid(dataString))
-                    {
-                        Brush newFill = (Brush)converter.ConvertFromString(dataString);
-                        rectangle.Fill = newFill;
-                    }
+                    label.Content = dataString;
+                    
                 }
             }
         }
 
         private void BoardPosition_MouseMove(object sender, MouseEventArgs e)
         {
-            Rectangle rectangle = sender as Rectangle;
+            Label label = sender as Label;
 
-            if (rectangle != null && e.LeftButton == MouseButtonState.Pressed)
+            previousLabel = label;
+
+            if (label != null && e.LeftButton == MouseButtonState.Pressed)
             {
-                DragDrop.DoDragDrop(rectangle,
-                                     rectangle.Fill.ToString(),
+                DragDrop.DoDragDrop(label,
+                                     label.Content.ToString(),
                                      DragDropEffects.Move);
             }
         }

@@ -49,7 +49,7 @@ namespace Chessgame
                     string rectangleName;
                     Rectangle rectangle = new Rectangle();
 
-                    rectangleName = $"{(char)(65 + columnIndex)}{rowIndex}";
+                    rectangleName = $"{(char)(65 + columnIndex)}{rowIndex + 1}";
                     totalIndex++;
 
                     rectangle.Name = rectangleName;
@@ -66,22 +66,56 @@ namespace Chessgame
                     grdChessBoard.Children.Add(rectangle);
                     Grid.SetColumn(rectangle, columnIndex);
                     Grid.SetRow(rectangle, rowIndex);
+                    rectangle.Drop += BoardPosition_Drop;
+                    rectangle.MouseMove += BoardPosition_MouseMove;
                 }
             }
         }
-        
+
+        private void BoardPosition_Drop(object sender, DragEventArgs e)
+        {
+            Rectangle rectangle = sender as Rectangle;
+
+            if (rectangle != null)
+            {
+                if (e.Data.GetDataPresent(DataFormats.StringFormat))
+                {
+                    string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
+                    BrushConverter converter = new BrushConverter();
+
+                    if (converter.IsValid(dataString))
+                    {
+                        Brush newFill = (Brush)converter.ConvertFromString(dataString);
+                        rectangle.Fill = newFill;
+                    }
+                }
+            }
+        }
+
+        private void BoardPosition_MouseMove(object sender, MouseEventArgs e)
+        {
+            Rectangle rectangle = sender as Rectangle;
+
+            if (rectangle != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(rectangle,
+                                     rectangle.Fill.ToString(),
+                                     DragDropEffects.Move);
+            }
+        }
+
         private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
             CenterGrid(grdStartUp);
             CenterGrid(grdChessGame);
             SwitchToGrid(grdStartUp, grdChessGame);
-            CreateChessBoard();
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             SwitchToGrid(grdChessGame, grdStartUp);
+            CreateChessBoard();
         }
     }
 }

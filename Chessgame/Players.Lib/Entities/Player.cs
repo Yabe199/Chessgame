@@ -16,7 +16,7 @@ namespace Players.Lib.Entities
         {
             Name = name;
             Score = score;
-            Index = Index;
+            Index = index;
         }
     }
 }

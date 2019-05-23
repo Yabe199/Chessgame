@@ -18,7 +18,7 @@ namespace Players.Lib.Services
 
         public void AddPlayer(Player newPlayer)
         {
-            Players[1] = newPlayer;
+            Players[newPlayer.Index] = newPlayer;
         }
 
         public void UpdatePlayer(Player editedPlayer)

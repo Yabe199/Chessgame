@@ -22,9 +22,12 @@ namespace Chessgame
     /// </summary>
     public partial class MainWindow : Window
     {
+        PlayerService playerService;
+
         public MainWindow()
         {
             InitializeComponent();
+            playerService = new PlayerService();
         }
 
         void SwitchToGrid(Grid gridToShow, Grid gridToHide)
@@ -113,6 +116,16 @@ namespace Chessgame
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
+            Player playerOne, playerTwo;
+            string PlayerOneName = txtPlayerOne.Text,
+                   PlyerTwoName = txtPlayerTwo.Text;
+
+            playerOne = new Player(PlayerOneName, 0, 0);
+            playerTwo = new Player(PlyerTwoName, 1, 0);
+
+            playerService.AddPlayer(playerOne);
+            playerService.AddPlayer(playerTwo);
+
             SwitchToGrid(grdChessGame, grdStartUp);
             CreateChessBoard();
         }

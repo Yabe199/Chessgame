@@ -73,7 +73,6 @@ namespace Chessgame
             }
         }
         Label previousLabel;
-        string previousContent;
 
         private void BoardPosition_Drop(object sender, DragEventArgs e)
         {

@@ -55,7 +55,7 @@
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="512,500,0,0" VerticalAlignment="Top" Width="75"/>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="587,425,0,0" VerticalAlignment="Top" Width="75"/>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="662,500,0,0" VerticalAlignment="Top" Width="75"/>
-            <Grid x:Name="grdChessBoard" HorizontalAlignment="Left" Height="600" Margin="287,125,0,0" VerticalAlignment="Top" Width="600" AllowDrop="True">
+            <Grid x:Name="grdChessBoard" HorizontalAlignment="Left" Height="600" Margin="287,125,0,0" VerticalAlignment="Top" Width="600" AllowDrop="True" Grid.RowSpan="8" Grid.ColumnSpan="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -67,15 +67,14 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="3*"/>
                     <RowDefinition/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
             </Grid>
         </Grid>

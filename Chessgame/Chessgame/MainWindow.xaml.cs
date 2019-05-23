@@ -126,6 +126,9 @@ namespace Chessgame
             playerService.AddPlayer(playerOne);
             playerService.AddPlayer(playerTwo);
 
+            lblPlayerOne.Content = playerOne.Name;
+            lblPlayerTwo.Content = playerTwo.Name;
+
             SwitchToGrid(grdChessGame, grdStartUp);
             CreateChessBoard();
         }

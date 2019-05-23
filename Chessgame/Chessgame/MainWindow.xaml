@@ -22,7 +22,7 @@
                 </Rectangle.Fill>
             </Rectangle>
             <Label x:Name="lblPlayerOne" Content="Player One" HorizontalAlignment="Center" Height="30" Margin="0,0,900,575" VerticalAlignment="Center" Width="250"/>
-            <Label x:Name="lblPlayerOne_Copy" Content="Player Two" HorizontalAlignment="Center" Height="30" Margin="900,0,0,575" VerticalAlignment="Center" Width="250"/>
+            <Label x:Name="lblPlayerTwo" Content="Player Two" HorizontalAlignment="Center" Height="30" Margin="900,0,0,575" VerticalAlignment="Center" Width="250"/>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="287,125,0,0" VerticalAlignment="Top" Width="75"/>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="812,200,0,0" VerticalAlignment="Top" Width="75"/>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="437,125,0,0" VerticalAlignment="Top" Width="75"/>

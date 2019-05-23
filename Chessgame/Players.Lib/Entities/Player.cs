@@ -1,4 +1,5 @@
 ﻿using Pawns.Lib.Entities;
+using Pawns.Lib.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,17 @@ namespace Players.Lib.Entities
         public int Score { get; set; }
         public int Index { get; set; }
         public List<Pawn> PlayerPawns { get; set; }
+        public List<Pawn> TakenPawns { get; set; }
 
         public Player(string name, int index, int score)
         {
+            PawnService pawnService = new PawnService(); 
+            
             Name = name;
             Score = score;
             Index = index;
-            PlayerPawns = new List<Pawn>();
+            PlayerPawns = pawnService.Pawns;
+            TakenPawns = new List<Pawn>();
         }
     }
 }

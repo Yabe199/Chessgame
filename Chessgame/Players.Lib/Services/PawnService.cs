@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Pawns.Lib.Services
 {
-    public class PawnsService
+    public class PawnService
     {
         public List<Pawn> Pawns { get; set; }
 
-        public PawnsService()
+        public PawnService()
         {
             Pawns = new List<Pawn>();
         }

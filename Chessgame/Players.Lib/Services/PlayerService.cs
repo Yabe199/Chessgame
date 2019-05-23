@@ -15,5 +15,16 @@ namespace Players.Lib.Services
         {
             Players = new List<Player>();
         }
+
+        public void AddPlayer(Player NewPlayer)
+        {
+            Players.Add(NewPlayer);
+        }
+
+        public void UpdatePlayer(Player EditedPlayer)
+        {
+            Players.Remove(EditedPlayer);
+            Players.Insert(EditedPlayer.Index, EditedPlayer);
+        }
     }
 }

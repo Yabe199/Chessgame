@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Players.Lib.Entities
 {
@@ -13,6 +14,7 @@ namespace Players.Lib.Entities
         public string Name { get; set; }
         public int Score { get; set; }
         public int Index { get; set; }
+        public Brush Color { get; set; }
         public List<Pawn> PlayerPawns { get; set; }
         public List<Pawn> TakenPawns { get; set; }
 
@@ -25,6 +27,23 @@ namespace Players.Lib.Entities
             Index = index;
             PlayerPawns = pawnService.Pawns;
             TakenPawns = new List<Pawn>();
+            Color = AssignColor(index);
+        }
+
+        private Brush AssignColor(int index)
+        {
+            Brush playerColor;
+
+            if (Index == 0)
+            {
+                playerColor = Brushes.Black;
+            }
+            else
+            {
+                playerColor = Brushes.White;
+            }
+
+            return playerColor;
         }
     }
 }

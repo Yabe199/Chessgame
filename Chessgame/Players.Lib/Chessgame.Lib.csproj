@@ -42,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Board.cs" />
     <Compile Include="Entities\Pawn.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BoardService.cs" />
     <Compile Include="Services\PawnService.cs" />
     <Compile Include="Services\PlayerService.cs" />
   </ItemGroup>

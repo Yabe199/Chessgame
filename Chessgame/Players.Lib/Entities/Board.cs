@@ -17,14 +17,15 @@ namespace Players.Lib.Entities
         {
             ChessBoard = CreateGrid();
             BoardSquares = CreateLabels();
+            AddLabelsToGrid(BoardSquares, ChessBoard);
         }
 
         private Grid CreateGrid()
         {
             Grid grid = new Grid();
             grid.Name = "grdChessboard";
-            grid.Width = 800;
-            grid.Height = 800;
+            grid.Width = 600;
+            grid.Height = 600;
             grid.Margin = new Thickness(0);
             grid.HorizontalAlignment = HorizontalAlignment.Center;
             grid.VerticalAlignment = VerticalAlignment.Center;
@@ -64,12 +65,26 @@ namespace Players.Lib.Entities
                     label.Height = 75;
                     label.Margin = new Thickness(0);
                     label.Content = labelName;
+                    label.AllowDrop = true;
 
                     Labels[x,y] = label;
                 }
             }
 
             return Labels;
+        }
+
+        private void AddLabelsToGrid(Label[,] labels, Grid grid)
+        {
+            for (int x = 0; x < labels.GetLength(0); x++)
+            {
+                for (int y = 0; y < labels.GetLength(1); y++)
+                {
+                    grid.Children.Add(labels[x, y]);
+                    Grid.SetColumn(labels[x, y], x);
+                    Grid.SetRow(labels[x, y], y);
+                }
+            }
         }
 
     }

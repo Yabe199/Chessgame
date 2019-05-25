@@ -132,6 +132,7 @@ namespace Chessgame
             SwitchToGrid(grdChessGame, grdStartUp);
             //CreateChessBoard();
             ChessBoard = new BoardService();
+            grdChessGame.Children.Add(ChessBoard.Chessboard.ChessBoard);
         }
     }
 }

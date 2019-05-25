@@ -16,7 +16,7 @@ namespace Players.Lib.Entities
         public Board()
         {
             ChessBoard = CreateGrid();
-            BoardSquares = new Label[8, 8];
+            BoardSquares = CreateLabels();
         }
 
         private Grid CreateGrid()
@@ -31,7 +31,7 @@ namespace Players.Lib.Entities
 
             for (int i = 0; i < 8; i++)
             {
-                string columnName = ((char)(65 + i)).ToString();
+                string columnName = "column" + ((char)(65 + i)).ToString();
                 ColumnDefinition colDef = new ColumnDefinition();
                 colDef.Name = columnName;
                 grid.ColumnDefinitions.Add(colDef);
@@ -39,7 +39,7 @@ namespace Players.Lib.Entities
 
             for (int i = 0; i < 8; i++)
             {
-                string rowName = (i+1).ToString();
+                string rowName = "row" + (i+1).ToString();
                 RowDefinition rowDef = new RowDefinition();
                 rowDef.Name = rowName;
                 grid.RowDefinitions.Add(rowDef);
@@ -47,5 +47,30 @@ namespace Players.Lib.Entities
             
             return grid;
         }
+
+        private Label[,] CreateLabels()
+        {
+            Label[,] Labels = new Label[8, 8];
+
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    string labelName = ((char)(65 + x)).ToString() + (y + 1);
+
+                    Label label = new Label();
+                    label.Name = labelName;
+                    label.Width = 75;
+                    label.Height = 75;
+                    label.Margin = new Thickness(0);
+                    label.Content = labelName;
+
+                    Labels[x,y] = label;
+                }
+            }
+
+            return Labels;
+        }
+
     }
 }

@@ -55,28 +55,6 @@
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="512,500,0,0" VerticalAlignment="Top" Width="75"/>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="587,425,0,0" VerticalAlignment="Top" Width="75"/>
             <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="662,500,0,0" VerticalAlignment="Top" Width="75"/>
-            <Grid x:Name="grdChessBoard" HorizontalAlignment="Left" Height="600" Margin="287,125,0,0" VerticalAlignment="Top" Width="600" AllowDrop="True" Grid.RowSpan="8" Grid.ColumnSpan="8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-            </Grid>
         </Grid>
         <Label x:Name="lblTest" Content="Label" HorizontalAlignment="Left" Height="58" Margin="1300,-24,0,0" VerticalAlignment="Top" Width="61"/>
     </Grid>

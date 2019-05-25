@@ -23,6 +23,7 @@ namespace Chessgame
     public partial class MainWindow : Window
     {
         PlayerService playerService;
+        BoardService ChessBoard;
 
         public MainWindow()
         {
@@ -43,67 +44,67 @@ namespace Chessgame
             gridToCenter.Margin = new Thickness(0);
         }
 
-        void CreateChessBoard()
-        {
-            int totalIndex = 0;
+        //void CreateChessBoard()
+        //{
+        //    int totalIndex = 0;
 
-            for (int rowIndex = 0; rowIndex < 8; rowIndex++)
-            {
-                for (int columnIndex = 0; columnIndex < 8; columnIndex++)
-                {
-                    string labelName;
-                    Label label = new Label();
+        //    for (int rowIndex = 0; rowIndex < 8; rowIndex++)
+        //    {
+        //        for (int columnIndex = 0; columnIndex < 8; columnIndex++)
+        //        {
+        //            string labelName;
+        //            Label label = new Label();
 
-                    labelName = $"{(char)(65 + columnIndex)}{rowIndex + 1}";
-                    totalIndex++;
+        //            labelName = $"{(char)(65 + columnIndex)}{rowIndex + 1}";
+        //            totalIndex++;
 
-                    label.Name = labelName;
-                    label.AllowDrop = true;
-                    label.Content = labelName;
-                    label.HorizontalContentAlignment = HorizontalAlignment.Center;
-                    label.VerticalContentAlignment = VerticalAlignment.Center;
-                    label.Foreground = Brushes.DarkGray;
+        //            label.Name = labelName;
+        //            label.AllowDrop = true;
+        //            label.Content = labelName;
+        //            label.HorizontalContentAlignment = HorizontalAlignment.Center;
+        //            label.VerticalContentAlignment = VerticalAlignment.Center;
+        //            label.Foreground = Brushes.DarkGray;
 
-                    grdChessBoard.Children.Add(label);
-                    Grid.SetColumn(label, columnIndex);
-                    Grid.SetRow(label, rowIndex);
-                    label.Drop += BoardPosition_Drop;
-                    label.MouseMove += BoardPosition_MouseMove;
-                }
-            }
-        }
-        Label previousLabel;
+        //            grdChessBoard.Children.Add(label);
+        //            Grid.SetColumn(label, columnIndex);
+        //            Grid.SetRow(label, rowIndex);
+        //            label.Drop += BoardPosition_Drop;
+        //            label.MouseMove += BoardPosition_MouseMove;
+        //        }
+        //    }
+        //}
+        //Label previousLabel;
 
-        private void BoardPosition_Drop(object sender, DragEventArgs e)
-        {
-            Label label = sender as Label;
+        //private void BoardPosition_Drop(object sender, DragEventArgs e)
+        //{
+        //    Label label = sender as Label;
 
-            previousLabel.Content = label.Content;
+        //    previousLabel.Content = label.Content;
 
-            if (label != null)
-            {
-                if (e.Data.GetDataPresent(DataFormats.StringFormat))
-                {
-                    string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
-                    label.Content = dataString;
+        //    if (label != null)
+        //    {
+        //        if (e.Data.GetDataPresent(DataFormats.StringFormat))
+        //        {
+        //            string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
+        //            label.Content = dataString;
                     
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
-        private void BoardPosition_MouseMove(object sender, MouseEventArgs e)
-        {
-            Label label = sender as Label;
+        //private void BoardPosition_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    Label label = sender as Label;
 
-            previousLabel = label;
+        //    previousLabel = label;
 
-            if (label != null && e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragDrop.DoDragDrop(label,
-                                     label.Content.ToString(),
-                                     DragDropEffects.Move);
-            }
-        }
+        //    if (label != null && e.LeftButton == MouseButtonState.Pressed)
+        //    {
+        //        DragDrop.DoDragDrop(label,
+        //                             label.Content.ToString(),
+        //                             DragDropEffects.Move);
+        //    }
+        //}
 
         private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
         {
@@ -129,7 +130,8 @@ namespace Chessgame
             lblPlayerTwo.Content = playerTwo.Name;
 
             SwitchToGrid(grdChessGame, grdStartUp);
-            CreateChessBoard();
+            //CreateChessBoard();
+            ChessBoard = new BoardService();
         }
     }
 }

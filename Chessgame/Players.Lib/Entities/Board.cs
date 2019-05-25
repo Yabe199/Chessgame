@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Players.Lib.Entities
 {
@@ -22,13 +23,15 @@ namespace Players.Lib.Entities
 
         private Grid CreateGrid()
         {
-            Grid grid = new Grid();
-            grid.Name = "grdChessboard";
-            grid.Width = 600;
-            grid.Height = 600;
-            grid.Margin = new Thickness(0);
-            grid.HorizontalAlignment = HorizontalAlignment.Center;
-            grid.VerticalAlignment = VerticalAlignment.Center;
+            Grid grid = new Grid
+            {
+                Name = "grdChessboard",
+                Width = 600,
+                Height = 600,
+                Margin = new Thickness(0),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
 
             for (int i = 0; i < 8; i++)
             {
@@ -59,15 +62,20 @@ namespace Players.Lib.Entities
                 {
                     string labelName = ((char)(65 + x)).ToString() + (y + 1);
 
-                    Label label = new Label();
-                    label.Name = labelName;
-                    label.Width = 75;
-                    label.Height = 75;
-                    label.Margin = new Thickness(0);
-                    label.Content = labelName;
-                    label.HorizontalContentAlignment = HorizontalAlignment.Center;
-                    label.VerticalContentAlignment = VerticalAlignment.Center;
-                    label.AllowDrop = true;
+                    Label label = new Label
+                    {
+                        Name = labelName,
+                        Width = 75,
+                        Height = 75,
+                        Margin = new Thickness(0),
+                        Content = labelName,
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        AllowDrop = true
+                    };
+                    
+                    label.Drop += BoardPosition_Drop;
+                    label.MouseMove += BoardPosition_MouseMove;
 
                     Labels[x,y] = label;
                 }
@@ -88,6 +96,41 @@ namespace Players.Lib.Entities
                 }
             }
         }
+
+        #region Eventhandlers
+
+        Label previousLabel;
+
+        private void BoardPosition_Drop(object sender, DragEventArgs e)
+        {
+            Label label = sender as Label;
+
+            previousLabel.Content = label.Content;
+
+            if (label != null)
+            {
+                if (e.Data.GetDataPresent(DataFormats.StringFormat))
+                {
+                    string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
+                    label.Content = dataString;
+
+                }
+            }
+        }
+
+        private void BoardPosition_MouseMove(object sender, MouseEventArgs e)
+        {
+            Label label = sender as Label;
+
+            previousLabel = label;
+
+            if (label != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(label, label.Content.ToString(), DragDropEffects.Move);
+            }
+        }
+
+        #endregion
 
     }
 }

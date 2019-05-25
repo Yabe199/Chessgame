@@ -65,6 +65,8 @@ namespace Players.Lib.Entities
                     label.Height = 75;
                     label.Margin = new Thickness(0);
                     label.Content = labelName;
+                    label.HorizontalContentAlignment = HorizontalAlignment.Center;
+                    label.VerticalContentAlignment = VerticalAlignment.Center;
                     label.AllowDrop = true;
 
                     Labels[x,y] = label;

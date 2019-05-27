@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Players.Lib.Entities;
 using Players.Lib.Services;
+using Chessgame.Lib.Entities;
+
 
 namespace Chessgame
 {
@@ -150,5 +152,44 @@ namespace Chessgame
             SwitchToGrid(grdChessGame, grdStartUp);
             CreateChessboard();
         }
+
     } 
+
+
+        private void SetPawns()
+        {
+
+            string PlayerOneColour = "white";
+            string PlayerTwoColour = "black";
+
+            //player one pawns
+            Pawns player1Pawn1 = new Pawns(0, PlayerOneColour);
+            Pawns player1pawn2 = new Pawns(0, PlayerOneColour);
+            Pawns player1pawn3 = new Pawns(0, PlayerOneColour);
+            Pawns player1pawn4 = new Pawns(0, PlayerOneColour);
+            Pawns player1pawn5 = new Pawns(0, PlayerOneColour);
+            Pawns player1pawn6 = new Pawns(0, PlayerOneColour);
+            Pawns player1pawn7 = new Pawns(0, PlayerOneColour);
+            Pawns player1pawn8 = new Pawns(0, PlayerOneColour);
+
+            Pawns player1King = new Pawns(2, PlayerOneColour);
+            Pawns player1Queen = new Pawns(3, PlayerOneColour);
+                  
+            //player two pawns
+
+            Pawns player2pawn1 = new Pawns(0, PlayerTwoColour);
+            Pawns player2pawn2 = new Pawns(0, PlayerTwoColour);
+            Pawns player2pawn3 = new Pawns(0, PlayerTwoColour);
+            Pawns player2pawn4 = new Pawns(0, PlayerTwoColour);
+            Pawns player2pawn5 = new Pawns(0, PlayerTwoColour);
+            Pawns player2pawn6 = new Pawns(0, PlayerTwoColour);
+            Pawns player2pawn7 = new Pawns(0, PlayerTwoColour);
+            Pawns player2pawn8 = new Pawns(0, PlayerTwoColour);
+                  
+
+
+
+        }
+    }
+
 }

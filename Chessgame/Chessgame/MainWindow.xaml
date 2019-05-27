@@ -16,45 +16,71 @@
             <TextBox x:Name="txtPlayerTwo" HorizontalAlignment="Center" Height="27" Margin="527,411,467,412" TextWrapping="Wrap" Text="Player Two" VerticalAlignment="Center" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
         <Grid x:Name="grdChessGame" HorizontalAlignment="Left" Height="850" Margin="1210,10,0,0" VerticalAlignment="Top" Width="1173">
-            <Rectangle HorizontalAlignment="Left" Height="600" Margin="287,125,0,0" VerticalAlignment="Top" Width="600">
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="#FFE0E0E0"/>
-                </Rectangle.Fill>
-            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="600" Margin="285,125,0,0" VerticalAlignment="Top" Width="600" Stroke="Black"/>
             <Label x:Name="lblPlayerOne" Content="Player One" HorizontalAlignment="Center" Height="30" Margin="0,0,900,575" VerticalAlignment="Center" Width="250"/>
             <Label x:Name="lblPlayerTwo" Content="Player Two" HorizontalAlignment="Center" Height="30" Margin="900,0,0,575" VerticalAlignment="Center" Width="250"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="287,125,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="812,200,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="437,125,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="587,125,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="737,125,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="662,200,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="737,275,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="587,275,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="512,200,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="362,200,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="437,275,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="287,275,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="812,350,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="662,350,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="737,425,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="812,500,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="737,575,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="812,650,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="662,650,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="587,575,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="512,650,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="437,575,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="362,650,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="287,575,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="362,500,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="287,425,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="362,350,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="437,425,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="512,350,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="512,500,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="587,425,0,0" VerticalAlignment="Top" Width="75"/>
-            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="662,500,0,0" VerticalAlignment="Top" Width="75"/>
+            <Grid HorizontalAlignment="Center" Height="50" Margin="0,700,0,0" VerticalAlignment="Center" Width="600">
+                <Grid.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.AppWorkspaceColorKey}}"/>
+                </Grid.Background>
+                <Label x:Name="lblCurrentMove" Content="Label" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" Width="360" VerticalContentAlignment="Center"/>
+                <Button x:Name="btnSubmit" Content="Submit" HorizontalAlignment="Left" Height="30" Margin="370,10,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center"/>
+                <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Height="30" Margin="490,10,0,0" VerticalAlignment="Top" Width="100"/>
+            </Grid>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="285,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="360,200,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="435,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="510,200,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="585,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="660,200,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="735,125,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="810,200,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="285,275,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="360,350,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="435,275,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="510,350,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="585,275,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="660,350,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="735,275,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="810,350,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="286,425,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="361,500,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="436,425,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="511,500,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="586,425,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="661,500,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="736,425,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="811,500,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="286,575,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="361,650,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="436,575,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="511,650,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="586,575,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="661,650,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="736,575,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Rectangle Fill="Black" HorizontalAlignment="Left" Height="75" Margin="811,650,0,0" Stroke="Black" VerticalAlignment="Top" Width="75"/>
+            <Grid x:Name="grdChessboard" HorizontalAlignment="Left" Height="600" Margin="285,125,0,0" VerticalAlignment="Top" Width="600">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="Row1"/>
+                    <RowDefinition x:Name="Row2"/>
+                    <RowDefinition x:Name="Row3"/>
+                    <RowDefinition x:Name="Row4"/>
+                    <RowDefinition x:Name="Row5"/>
+                    <RowDefinition x:Name="Row6"/>
+                    <RowDefinition x:Name="Row7"/>
+                    <RowDefinition x:Name="Row8"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="ColumnA"/>
+                    <ColumnDefinition x:Name="columnB"/>
+                    <ColumnDefinition x:Name="columnC"/>
+                    <ColumnDefinition x:Name="columnD"/>
+                    <ColumnDefinition x:Name="columnE"/>
+                    <ColumnDefinition x:Name="columnF"/>
+                    <ColumnDefinition x:Name="columnG"/>
+                    <ColumnDefinition x:Name="columnH"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
         </Grid>
         <Label x:Name="lblTest" Content="Label" HorizontalAlignment="Left" Height="58" Margin="1300,-24,0,0" VerticalAlignment="Top" Width="61"/>
     </Grid>

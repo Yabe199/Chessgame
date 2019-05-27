@@ -24,46 +24,13 @@ namespace Chessgame
     {
         PlayerService playerService;
         Label[,] BoardSquares;
-        
+
         #region ChessboardGrid
 
         private void CreateChessboard()
         {
-            Grid Chessgrid = CreateGrid();
             BoardSquares = CreateLabels();
-            AddLabelsToGrid(BoardSquares, Chessgrid);
-            grdChessGame.Children.Add(Chessgrid);
-        }
-
-        private Grid CreateGrid()
-        {
-            Grid grid = new Grid
-            {
-                Name = "grdChessboard",
-                Width = 600,
-                Height = 600,
-                Margin = new Thickness(0),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            for (int i = 0; i < 8; i++)
-            {
-                string columnName = "column" + ((char)(65 + i)).ToString();
-                ColumnDefinition colDef = new ColumnDefinition();
-                colDef.Name = columnName;
-                grid.ColumnDefinitions.Add(colDef);
-            }
-
-            for (int i = 0; i < 8; i++)
-            {
-                string rowName = "row" + (i + 1).ToString();
-                RowDefinition rowDef = new RowDefinition();
-                rowDef.Name = rowName;
-                grid.RowDefinitions.Add(rowDef);
-            }
-
-            return grid;
+            AddLabelsToGrid(BoardSquares);
         }
 
         private Label[,] CreateLabels()
@@ -82,14 +49,11 @@ namespace Chessgame
                         Width = 75,
                         Height = 75,
                         Margin = new Thickness(0),
-                        Content = labelName,
                         HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        AllowDrop = true
+                        VerticalContentAlignment = VerticalAlignment.Center
                     };
 
-                    label.Drop += Pawn_Drop;
-                    label.MouseMove += Pawn_MouseMove;
+                    label.MouseLeftButtonDown += Pawn_MouseLeftButtonDown;
 
                     Labels[x, y] = label;
                 }
@@ -98,47 +62,44 @@ namespace Chessgame
             return Labels;
         }
 
-        private void AddLabelsToGrid(Label[,] labels, Grid grid)
+        private void AddLabelsToGrid(Label[,] labels)
         {
             for (int x = 0; x < labels.GetLength(0); x++)
             {
                 for (int y = 0; y < labels.GetLength(1); y++)
                 {
-                    grid.Children.Add(labels[x, y]);
+                    grdChessboard.Children.Add(labels[x, y]);
                     Grid.SetColumn(labels[x, y], x);
                     Grid.SetRow(labels[x, y], y);
                 }
             }
         }
 
-        Label previousLabel;
-
-        public void Pawn_Drop(object sender, DragEventArgs e)
+        Label selectedLabel;
+        public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Label label = sender as Label;
 
-            previousLabel.Content = label.Content;
-
-            if (label != null)
+            if (selectedLabel == null)
             {
-                if (e.Data.GetDataPresent(DataFormats.StringFormat))
-                {
-                    string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
-                    label.Content = dataString;
+                selectedLabel = label;
+                label.BorderBrush = Brushes.Red;
+                label.BorderThickness = new Thickness(3);
+                lblCurrentMove.Content = $"Move {label.Name.ToString()} from {label.Name.ToString()}";
 
-                }
             }
-        }
-
-        public void Pawn_MouseMove(object sender, MouseEventArgs e)
-        {
-            Label label = sender as Label;
-
-            previousLabel = label;
-
-            if (label != null && e.LeftButton == MouseButtonState.Pressed)
+            else
             {
-                DragDrop.DoDragDrop(label, label.Content.ToString(), DragDropEffects.Move);
+                int[] cord = { Grid.GetColumn(selectedLabel), Grid.GetRow(selectedLabel), Grid.GetColumn(label), Grid.GetRow(label) };
+                Grid.SetColumn(label, cord[0]);
+                Grid.SetRow(label, cord[1]);
+                Grid.SetColumn(selectedLabel, cord[2]);
+                Grid.SetRow(selectedLabel, cord[3]);
+                label.BorderBrush = null;
+                label.BorderThickness = new Thickness(0);
+                lblPlayerOne.Focus();
+                selectedLabel = null;
+                lblCurrentMove.Content += $" to {label.Name.ToString()}";
             }
         }
 
@@ -189,5 +150,5 @@ namespace Chessgame
             SwitchToGrid(grdChessGame, grdStartUp);
             CreateChessboard();
         }
-    }
+    } 
 }

@@ -23,11 +23,11 @@ namespace Players.Lib.Entities
             PawnService pawnService = new PawnService(); 
             
             Name = name;
-            Score = score;
+            Color = AssignColor(index);
             Index = index;
             PlayerPawns = pawnService.Pawns;
             TakenPawns = new List<Pawn>();
-            Color = AssignColor(index);
+            Score = score;
         }
 
         private Brush AssignColor(int index)

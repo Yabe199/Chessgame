@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chessgame", "Chessgame\Chessgame.csproj", "{5B7B9069-A4F7-49F9-8AE6-4A74D6798ABC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chessgame.Lib", "Chessgame.Lib\Chessgame.Lib.csproj", "{657C7FCA-2ADE-43C2-BC70-533BAB72E5BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Players.Lib", "Players.Lib\Players.Lib.csproj", "{39CEAD01-9F86-4A0F-883B-95CEAC2D55CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{5B7B9069-A4F7-49F9-8AE6-4A74D6798ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B7B9069-A4F7-49F9-8AE6-4A74D6798ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B7B9069-A4F7-49F9-8AE6-4A74D6798ABC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{657C7FCA-2ADE-43C2-BC70-533BAB72E5BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{657C7FCA-2ADE-43C2-BC70-533BAB72E5BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{657C7FCA-2ADE-43C2-BC70-533BAB72E5BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{657C7FCA-2ADE-43C2-BC70-533BAB72E5BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CEAD01-9F86-4A0F-883B-95CEAC2D55CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CEAD01-9F86-4A0F-883B-95CEAC2D55CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CEAD01-9F86-4A0F-883B-95CEAC2D55CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CEAD01-9F86-4A0F-883B-95CEAC2D55CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

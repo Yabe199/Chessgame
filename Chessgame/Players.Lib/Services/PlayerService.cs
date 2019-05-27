@@ -9,11 +9,21 @@ namespace Players.Lib.Services
 {
     public class PlayerService
     {
-        public List<Player> Players { get; set; }
+        public Player[] Players { get; set; }
 
         public PlayerService()
         {
-            Players = new List<Player>();
+            Players = new Player[2];
+        }
+
+        public void AddPlayer(Player newPlayer)
+        {
+            Players[newPlayer.Index] = newPlayer;
+        }
+
+        public void UpdatePlayer(Player editedPlayer)
+        {
+            Players[editedPlayer.Index] = editedPlayer;
         }
     }
 }

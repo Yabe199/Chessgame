@@ -95,8 +95,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chessgame.Lib\Chessgame.Lib.csproj">
-      <Project>{657c7fca-2ade-43c2-bc70-533bab72e5bd}</Project>
+    <ProjectReference Include="..\Players.Lib\Chessgame.Lib.csproj">
+      <Project>{39cead01-9f86-4a0f-883b-95ceac2d55ca}</Project>
       <Name>Chessgame.Lib</Name>
     </ProjectReference>
   </ItemGroup>

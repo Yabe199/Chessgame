@@ -12,7 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Players.Lib.Entities;
+using Players.Lib.Services;
 using Chessgame.Lib.Entities;
+
 
 namespace Chessgame
 {
@@ -21,9 +24,93 @@ namespace Chessgame
     /// </summary>
     public partial class MainWindow : Window
     {
+        PlayerService playerService;
+        Label[,] BoardSquares;
+
+        #region ChessboardGrid
+
+        private void CreateChessboard()
+        {
+            BoardSquares = CreateLabels();
+            AddLabelsToGrid(BoardSquares);
+        }
+
+        private Label[,] CreateLabels()
+        {
+            Label[,] Labels = new Label[8, 8];
+
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    string labelName = ((char)(65 + x)).ToString() + (y + 1);
+
+                    Label label = new Label
+                    {
+                        Name = labelName,
+                        Width = 75,
+                        Height = 75,
+                        Margin = new Thickness(0),
+                        HorizontalContentAlignment = HorizontalAlignment.Center,
+                        VerticalContentAlignment = VerticalAlignment.Center
+                    };
+
+                    label.MouseLeftButtonDown += Pawn_MouseLeftButtonDown;
+
+                    Labels[x, y] = label;
+                }
+            }
+
+            return Labels;
+        }
+
+        private void AddLabelsToGrid(Label[,] labels)
+        {
+            for (int x = 0; x < labels.GetLength(0); x++)
+            {
+                for (int y = 0; y < labels.GetLength(1); y++)
+                {
+                    grdChessboard.Children.Add(labels[x, y]);
+                    Grid.SetColumn(labels[x, y], x);
+                    Grid.SetRow(labels[x, y], y);
+                }
+            }
+        }
+
+        Label selectedLabel;
+        public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Label label = sender as Label;
+
+            if (selectedLabel == null)
+            {
+                selectedLabel = label;
+                label.BorderBrush = Brushes.Red;
+                label.BorderThickness = new Thickness(3);
+                lblCurrentMove.Content = $"Move {label.Name.ToString()} from {label.Name.ToString()}";
+
+            }
+            else
+            {
+                int[] cord = { Grid.GetColumn(selectedLabel), Grid.GetRow(selectedLabel), Grid.GetColumn(label), Grid.GetRow(label) };
+                Grid.SetColumn(label, cord[0]);
+                Grid.SetRow(label, cord[1]);
+                Grid.SetColumn(selectedLabel, cord[2]);
+                Grid.SetRow(selectedLabel, cord[3]);
+                label.BorderBrush = null;
+                label.BorderThickness = new Thickness(0);
+                lblPlayerOne.Focus();
+                selectedLabel = null;
+                lblCurrentMove.Content += $" to {label.Name.ToString()}";
+            }
+        }
+
+        #endregion  
+
         public MainWindow()
         {
             InitializeComponent();
+            playerService = new PlayerService();
         }
 
         void SwitchToGrid(Grid gridToShow, Grid gridToHide)
@@ -38,7 +125,7 @@ namespace Chessgame
             gridToCenter.VerticalAlignment = VerticalAlignment.Center;
             gridToCenter.Margin = new Thickness(0);
         }
-        
+
         private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
@@ -49,16 +136,25 @@ namespace Chessgame
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
+            Player playerOne, playerTwo;
+            string PlayerOneName = txtPlayerOne.Text,
+                   PlyerTwoName = txtPlayerTwo.Text;
+
+            playerOne = new Player(PlayerOneName, 0, 0);
+            playerTwo = new Player(PlyerTwoName, 1, 0);
+
+            playerService.AddPlayer(playerOne);
+            playerService.AddPlayer(playerTwo);
+
+            lblPlayerOne.Content = playerOne.Name;
+            lblPlayerTwo.Content = playerTwo.Name;
+
             SwitchToGrid(grdChessGame, grdStartUp);
+            CreateChessboard();
         }
 
-        private void btnChangePosition_Click(object sender, RoutedEventArgs e)
-        {
-            int Column = int.Parse(txtColumn.Text),
-                Row = int.Parse(txtRow.Text);
-            Grid.SetColumn(testtest, Column -1);
-            Grid.SetRow(testtest, Row -1);
-        }
+    } 
+
 
         private void SetPawns()
         {
@@ -95,4 +191,5 @@ namespace Chessgame
 
         }
     }
+
 }

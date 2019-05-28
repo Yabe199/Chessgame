@@ -27,7 +27,7 @@ namespace Chessgame.Lib.Entities
         #endregion
 
         #region Constructor
-        public Pawns(int pawnTypeParam, string Colour)
+        public Pawn(int pawnTypeParam, string Colour)
         {
             turn = false;
 

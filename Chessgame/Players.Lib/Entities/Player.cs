@@ -1,4 +1,4 @@
-﻿using Pawns.Lib.Entities;
+﻿using Chessgame.Lib.Entities;
 using Pawns.Lib.Services;
 using System;
 using System.Collections.Generic;

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chessgame.Lib.Services
+namespace Chessgame.Lib.Entities
 {
-    class PawnMove
+    public enum TypesOfPieces
     {
+        Pawn, Knight, Bishop, Rook, Queen, King
     }
 }

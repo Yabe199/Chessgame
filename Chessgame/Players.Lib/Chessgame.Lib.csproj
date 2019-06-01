@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Entities\Pawn.cs" />
     <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\TypesOfPieces.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PawnMove.cs" />
     <Compile Include="Services\PawnService.cs" />

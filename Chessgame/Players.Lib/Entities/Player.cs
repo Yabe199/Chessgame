@@ -1,5 +1,5 @@
 ﻿using Chessgame.Lib.Entities;
-using Pawns.Lib.Services;
+using Chessgame.Lib.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace Players.Lib.Entities
+namespace Chessgame.Lib.Entities
 {
     public class Player
     {

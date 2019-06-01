@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Players.Lib.Entities;
-using Players.Lib.Services;
 using Chessgame.Lib.Entities;
+using Chessgame.Lib.Services;
 
 
 namespace Chessgame
@@ -29,6 +28,26 @@ namespace Chessgame
         Label labelToMove = null;
         bool pawnSelected = false;
         string currentMoveDescription = string.Empty;
+
+        private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination)
+        {
+            string description = string.Empty;
+
+            if (moveOrigin == null && moveDestination == null)
+            {
+                description = $"{playerName} is aan de beurt.";
+            }
+            else if (moveOrigin != null && moveDestination == null)
+            {
+                description = $"{playerName} zet {moveOrigin.Content.ToString()} van {moveOrigin.Name} naar ...";
+            }
+            else
+            {
+                description = $"{playerName} zet {moveOrigin.Content.ToString()} van {moveOrigin.Name} naar {moveDestination.Name}.";
+            }
+
+            return description;
+        }
 
         #region ChessboardGrid
 
@@ -55,8 +74,7 @@ namespace Chessgame
                         Height = 75,
                         Margin = new Thickness(0),
                         HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center,
-                        Content = labelName
+                        VerticalContentAlignment = VerticalAlignment.Center
                     };
 
                     label.MouseLeftButtonDown += Pawn_MouseLeftButtonDown;
@@ -122,26 +140,6 @@ namespace Chessgame
             CenterGrid(grdStartUp);
             CenterGrid(grdChessGame);
             SwitchToGrid(grdStartUp, grdChessGame);
-        }
-
-        string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination)
-        {
-            string description = string.Empty;
-
-            if (moveOrigin == null && moveDestination == null)
-            {
-                description = $"{playerName} is aan de beurt.";
-            }
-            else if (moveOrigin != null && moveDestination == null)
-            {
-                description = $"{playerName} zet {moveOrigin.Content.ToString()} van {moveOrigin.Name} naar ...";
-            }
-            else
-            {
-                description = $"{playerName} zet {moveOrigin.Content.ToString()} van {moveOrigin.Name} naar {moveDestination.Name}.";
-            }
-
-            return description;
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)

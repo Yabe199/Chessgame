@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace Pawns.Lib.Services
+namespace Chessgame.Lib.Services
 {
     public class PawnService
     {

@@ -35,15 +35,15 @@ namespace Chessgame
 
             if (moveOrigin == null && moveDestination == null)
             {
-                description = $"{playerName} is aan de beurt.";
+                description = $"{playerName} is up.";
             }
             else if (moveOrigin != null && moveDestination == null)
             {
-                description = $"{playerName} zet {moveOrigin.Content.ToString()} van {moveOrigin.Name} naar ...";
+                description = $"{playerName} moves {moveOrigin.Content.ToString()} from {moveOrigin.Name} to ...";
             }
             else
             {
-                description = $"{playerName} zet {moveOrigin.Content.ToString()} van {moveOrigin.Name} naar {moveDestination.Name}.";
+                description = $"{playerName} moves {moveOrigin.Content.ToString()} from {moveOrigin.Name} to {moveDestination.Name}.";
             }
 
             return description;
@@ -74,8 +74,59 @@ namespace Chessgame
                         Height = 75,
                         Margin = new Thickness(0),
                         HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        Foreground = Brushes.Gray
                     };
+
+                    if (y == 1)
+                    {
+                        label.Content = "Pawn White";
+                    }
+                    else if (label.Name == "A1" || label.Name == "H1")
+                    {
+                        label.Content = "Rook White";
+                    }
+                    else if (label.Name == "B1" || label.Name == "G1")
+                    {
+                        label.Content = "Knight White";
+                    }
+                    else if (label.Name == "C1" || label.Name == "F1")
+                    {
+                        label.Content = "Bishop White";
+                    }
+                    else if (label.Name == "D1")
+                    {
+                        label.Content = "Queen White";
+                    }
+                    else if (label.Name == "E1")
+                    {
+                        label.Content = "King White";
+                    }
+                    else if (y == 6)
+                    {
+                        label.Content = "Pawn Black";
+                    }
+                    else if (label.Name == "A8" || label.Name == "H8")
+                    {
+                        label.Content = "Rook Black";
+                    }
+                    else if (label.Name == "B8" || label.Name == "G8")
+                    {
+                        label.Content = "Knight Black";
+                    }
+                    else if (label.Name == "C8" || label.Name == "F8")
+                    {
+                        label.Content = "Bishop Black";
+                    }
+                    else if (label.Name == "D8")
+                    {
+                        label.Content = "Queen Black";
+                    }
+                    else if (label.Name == "E8")
+                    {
+                        label.Content = "King Black";
+                    }
+
 
                     label.MouseLeftButtonDown += Pawn_MouseLeftButtonDown;
 
@@ -94,7 +145,7 @@ namespace Chessgame
                 {
                     grdChessboard.Children.Add(labels[x, y]);
                     Grid.SetColumn(labels[x, y], x);
-                    Grid.SetRow(labels[x, y], y);
+                    Grid.SetRow(labels[x, y], labels.GetLength(1) - y - 1);
                 }
             }
         }

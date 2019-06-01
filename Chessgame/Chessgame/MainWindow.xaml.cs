@@ -26,7 +26,7 @@ namespace Chessgame
     {
         PlayerService chessPlayers;
         Player activePlayer;
-        Label labelToMove;
+        Label labelToMove = null;
         bool pawnSelected = false;
         string currentMoveDescription = string.Empty;
 
@@ -55,7 +55,8 @@ namespace Chessgame
                         Height = 75,
                         Margin = new Thickness(0),
                         HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        Content = labelName
                     };
 
                     label.MouseLeftButtonDown += Pawn_MouseLeftButtonDown;
@@ -152,13 +153,14 @@ namespace Chessgame
             playerOne = new Player(playerOneName, 0, 0);
             playerTwo = new Player(playerTwoName, 1, 0);
             activePlayer = playerOne;
-            currentMoveDescription = ManageCurrentMoveDescription(activePlayer.Name, null, null);
+            currentMoveDescription = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null);
 
             chessPlayers.AddPlayer(playerOne);
             chessPlayers.AddPlayer(playerTwo);
 
             lblPlayerOne.Content = playerOne.Name;
             lblPlayerTwo.Content = playerTwo.Name;
+            lblCurrentMove.Content = currentMoveDescription;
 
             SwitchToGrid(grdChessGame, grdStartUp);
             CreateChessboard();
@@ -209,13 +211,13 @@ namespace Chessgame
                 labelToMove = label;
                 label.BorderBrush = Brushes.Red;
                 label.BorderThickness = new Thickness(3);
-                lblCurrentMove.Content = $"Move {label.Name.ToString()} from {label.Name.ToString()}";
+                lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null);
             }
             else
             {
                 label.BorderBrush = Brushes.Green;
                 label.BorderThickness = new Thickness(3);
-                lblCurrentMove.Content += $" to {label.Name.ToString()}";
+                lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, label);
                 grdChessboard.IsEnabled = false;
             }
 
@@ -249,6 +251,7 @@ namespace Chessgame
             
             ResetGridSelections();
             grdChessboard.IsEnabled = true;
+            lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null);
         }
     }
 

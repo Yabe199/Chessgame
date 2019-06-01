@@ -123,9 +123,22 @@ namespace Chessgame
             SwitchToGrid(grdStartUp, grdChessGame);
         }
 
-        string ManageCurrentMoveDescription()
+        string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination)
         {
             string description = string.Empty;
+
+            if (moveOrigin == null && moveDestination == null)
+            {
+                description = $"{playerName} is aan de beurt.";
+            }
+            else if (moveOrigin != null && moveDestination == null)
+            {
+                description = $"{playerName} zet {moveOrigin.Content.ToString()} van {moveOrigin.Name} naar ...";
+            }
+            else
+            {
+                description = $"{playerName} zet {moveOrigin.Content.ToString()} van {moveOrigin.Name} naar {moveDestination.Name}.";
+            }
 
             return description;
         }
@@ -133,13 +146,13 @@ namespace Chessgame
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             Player playerOne, playerTwo;
-            string playerOneName = txtPlayerOne.Text,
-                   playerTwoName = txtPlayerTwo.Text;
+            string playerOneName = txtPlayerOne.Text.Trim(),
+                   playerTwoName = txtPlayerTwo.Text.Trim();
 
             playerOne = new Player(playerOneName, 0, 0);
             playerTwo = new Player(playerTwoName, 1, 0);
             activePlayer = playerOne;
-            currentMoveDescription = ManageCurrentMoveDescription();
+            currentMoveDescription = ManageCurrentMoveDescription(activePlayer.Name, null, null);
 
             chessPlayers.AddPlayer(playerOne);
             chessPlayers.AddPlayer(playerTwo);

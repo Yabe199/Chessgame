@@ -28,6 +28,7 @@ namespace Chessgame
         Player activePlayer;
         Label labelToMove;
         bool pawnSelected = false;
+        string currentMoveDescription = string.Empty;
 
         #region ChessboardGrid
 
@@ -122,6 +123,13 @@ namespace Chessgame
             SwitchToGrid(grdStartUp, grdChessGame);
         }
 
+        string ManageCurrentMoveDescription()
+        {
+            string description = string.Empty;
+
+            return description;
+        }
+
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             Player playerOne, playerTwo;
@@ -131,6 +139,7 @@ namespace Chessgame
             playerOne = new Player(playerOneName, 0, 0);
             playerTwo = new Player(playerTwoName, 1, 0);
             activePlayer = playerOne;
+            currentMoveDescription = ManageCurrentMoveDescription();
 
             chessPlayers.AddPlayer(playerOne);
             chessPlayers.AddPlayer(playerTwo);
@@ -180,7 +189,6 @@ namespace Chessgame
         public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Label label = sender as Label;
-            string move = string.Empty;
 
             if (pawnSelected == false)
             {

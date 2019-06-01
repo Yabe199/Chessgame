@@ -10,7 +10,7 @@ namespace Chessgame.Lib.Entities
 
     public enum type
     {
-        Pawn, King, Queen, Horse, Tower, Bishop
+        Pawn, King, Queen, Knight, Rook, Bishop
     }
     public enum colour
     {
@@ -27,7 +27,7 @@ namespace Chessgame.Lib.Entities
         #endregion
 
         #region Constructor
-        public Pawns(int pawnTypeParam, string Colour)
+        public Pawn(int pawnTypeParam, string Colour)
         {
             turn = false;
 
@@ -60,11 +60,11 @@ namespace Chessgame.Lib.Entities
             }
             else if (pawnTypeParam == 3)
             {
-                pawnType = type.Horse;
+                pawnType = type.Knight;
             }
             else if (pawnTypeParam == 4)
             {
-                pawnType = type.Tower;
+                pawnType = type.Rook;
             }
             else if (pawnTypeParam == 1)
             {

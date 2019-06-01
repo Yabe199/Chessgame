@@ -1,4 +1,4 @@
-﻿using Pawns.Lib.Entities;
+﻿using Chessgame.Lib.Entities;
 using Pawns.Lib.Services;
 using System;
 using System.Collections.Generic;
@@ -14,13 +14,13 @@ namespace Players.Lib.Entities
         public string Name { get; set; }
         public int Score { get; set; }
         public int Index { get; set; }
-        public Brush Color { get; set; }
+        public colour Color { get; set; }
         public List<Pawn> PlayerPawns { get; set; }
         public List<Pawn> TakenPawns { get; set; }
 
         public Player(string name, int index, int score)
         {
-            PawnService pawnService = new PawnService(); 
+            PawnService pawnService = new PawnService(AssignColor(index)); 
             
             Name = name;
             Color = AssignColor(index);
@@ -30,17 +30,17 @@ namespace Players.Lib.Entities
             Score = score;
         }
 
-        private Brush AssignColor(int index)
+        private colour AssignColor(int index)
         {
-            Brush playerColor;
+            colour playerColor;
 
             if (Index == 0)
             {
-                playerColor = Brushes.Black;
+                playerColor = colour.Black;
             }
             else
             {
-                playerColor = Brushes.White;
+                playerColor = colour.White;
             }
 
             return playerColor;

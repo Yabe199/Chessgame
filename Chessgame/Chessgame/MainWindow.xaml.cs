@@ -24,14 +24,16 @@ namespace Chessgame
     /// </summary>
     public partial class MainWindow : Window
     {
-        PlayerService playerService;
-        Label[,] BoardSquares;
+        PlayerService chessPlayers;
+        Player activePlayer;
+        Label labelToMove;
+        bool pawnSelected = false;
 
         #region ChessboardGrid
 
         private void CreateChessboard()
         {
-            BoardSquares = CreateLabels();
+            Label[,] BoardSquares = CreateLabels();
             AddLabelsToGrid(BoardSquares);
         }
 
@@ -76,42 +78,10 @@ namespace Chessgame
                 }
             }
         }
+        
+        #endregion
 
-        Label selectedLabel;
-        public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Label label = sender as Label;
-
-            if (selectedLabel == null)
-            {
-                selectedLabel = label;
-                label.BorderBrush = Brushes.Red;
-                label.BorderThickness = new Thickness(3);
-                lblCurrentMove.Content = $"Move {label.Name.ToString()} from {label.Name.ToString()}";
-
-            }
-            else
-            {
-                int[] cord = { Grid.GetColumn(selectedLabel), Grid.GetRow(selectedLabel), Grid.GetColumn(label), Grid.GetRow(label) };
-                Grid.SetColumn(label, cord[0]);
-                Grid.SetRow(label, cord[1]);
-                Grid.SetColumn(selectedLabel, cord[2]);
-                Grid.SetRow(selectedLabel, cord[3]);
-                label.BorderBrush = null;
-                label.BorderThickness = new Thickness(0);
-                lblPlayerOne.Focus();
-                selectedLabel = null;
-                lblCurrentMove.Content += $" to {label.Name.ToString()}";
-            }
-        }
-
-        #endregion  
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            playerService = new PlayerService();
-        }
+        #region ScreenControl
 
         void SwitchToGrid(Grid gridToShow, Grid gridToHide)
         {
@@ -126,6 +96,14 @@ namespace Chessgame
             gridToCenter.Margin = new Thickness(0);
         }
 
+        #endregion
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            chessPlayers = new PlayerService();
+        }
+        
         private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
@@ -137,14 +115,15 @@ namespace Chessgame
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             Player playerOne, playerTwo;
-            string PlayerOneName = txtPlayerOne.Text,
-                   PlyerTwoName = txtPlayerTwo.Text;
+            string playerOneName = txtPlayerOne.Text,
+                   playerTwoName = txtPlayerTwo.Text;
 
-            playerOne = new Player(PlayerOneName, 0, 0);
-            playerTwo = new Player(PlyerTwoName, 1, 0);
+            playerOne = new Player(playerOneName, 0, 0);
+            playerTwo = new Player(playerTwoName, 1, 0);
+            activePlayer = playerOne;
 
-            playerService.AddPlayer(playerOne);
-            playerService.AddPlayer(playerTwo);
+            chessPlayers.AddPlayer(playerOne);
+            chessPlayers.AddPlayer(playerTwo);
 
             lblPlayerOne.Content = playerOne.Name;
             lblPlayerTwo.Content = playerTwo.Name;
@@ -186,6 +165,65 @@ namespace Chessgame
 
 
 
+        }
+
+        public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Label label = sender as Label;
+            string move = string.Empty;
+
+            if (pawnSelected == false)
+            {
+                pawnSelected = true;
+                labelToMove = label;
+                label.BorderBrush = Brushes.Red;
+                label.BorderThickness = new Thickness(3);
+                lblCurrentMove.Content = $"Move {label.Name.ToString()} from {label.Name.ToString()}";
+            }
+            else
+            {
+                label.BorderBrush = Brushes.Green;
+                label.BorderThickness = new Thickness(3);
+                lblCurrentMove.Content += $" to {label.Name.ToString()}";
+                grdChessboard.IsEnabled = false;
+            }
+
+        //    if (selectedLabel == null)
+        //    {
+
+        //    }
+        //    else
+        //    {
+        //        int[] cord = { Grid.GetColumn(selectedLabel), Grid.GetRow(selectedLabel), Grid.GetColumn(label), Grid.GetRow(label) };
+        //        Grid.SetColumn(label, cord[0]);
+        //        Grid.SetRow(label, cord[1]);
+        //        Grid.SetColumn(selectedLabel, cord[2]);
+        //        Grid.SetRow(selectedLabel, cord[3]);
+        //        label.BorderBrush = null;
+        //        label.BorderThickness = new Thickness(0);
+        //        lblPlayerOne.Focus();
+        //        selectedLabel = null;
+        //    }
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            labelToMove = null;
+            pawnSelected = false;
+            
+            grdChessboard.IsEnabled = true;
+
+            foreach (Control child in grdChessboard.Children)
+            {
+                child.Margin = new Thickness(0);
+                child.BorderBrush = null;
+                lblCurrentMove.Content = string.Empty;
+            }
         }
     }
 

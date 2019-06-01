@@ -78,7 +78,17 @@ namespace Chessgame
                 }
             }
         }
-        
+
+        void ResetGridSelections()
+        {
+            foreach (Control child in grdChessboard.Children)
+            {
+                child.Margin = new Thickness(0);
+                child.BorderBrush = null;
+                lblCurrentMove.Content = string.Empty;
+            }
+        }
+
         #endregion
 
         #region ScreenControl
@@ -216,14 +226,8 @@ namespace Chessgame
             labelToMove = null;
             pawnSelected = false;
             
+            ResetGridSelections();
             grdChessboard.IsEnabled = true;
-
-            foreach (Control child in grdChessboard.Children)
-            {
-                child.Margin = new Thickness(0);
-                child.BorderBrush = null;
-                lblCurrentMove.Content = string.Empty;
-            }
         }
     }
 

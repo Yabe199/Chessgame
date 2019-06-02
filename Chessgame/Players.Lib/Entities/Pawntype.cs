@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Players.Lib.Entities
 {
-    public enum Pawntype
+    public enum PawnType
     {
         Pawn, King, Queen, Horse, Tower, Bishop
     }

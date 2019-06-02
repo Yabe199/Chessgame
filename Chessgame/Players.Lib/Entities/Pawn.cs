@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Players.Lib.Entities;
+using Players.Lib.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,37 +10,32 @@ using System.Windows;
 namespace Chessgame.Lib.Entities
 {
 
-    public enum type
-    {
-        Pawn, King, Queen, Horse, Tower, Bishop
-    }
-    public enum colour
-    {
-        Black, White
-    }
     public class Pawn
     {
         #region properties
         public bool turn { get; set; }
-        public colour pawnColour { get; set; }
-        public type pawnType { get; set; }
-        //public PawnMove Moveset { get; set; }
+        public Colour pawnColour { get; set; }
+        public PawnType pawnType { get; set; }
+        public String avatar { get; set; }
+        public Point location { get; set; }
+        //public PawnMove moveset { get; set; }
 
         #endregion
 
         #region Constructor
-        public Pawn(int pawnTypeParam, string Colour)
+        public Pawn(int pawnTypeParam, string kleur)
         {
             turn = false;
-
+            avatar = AppDomain.CurrentDomain.BaseDirectory + "/images/";
+            //location = new Point(0, 0);
             //set colour of pawn
-            if (Colour == "Black")
+            if (kleur == "Black")
             {
-                pawnColour = colour.Black;
+                pawnColour = Colour.Black;
             }
-            else if (Colour == "White")
+            else if (kleur == "White")
             {
-                pawnColour = colour.White;
+                pawnColour = Colour.White;
             }
             else
             {
@@ -48,53 +45,65 @@ namespace Chessgame.Lib.Entities
             //set pawnType
             if (pawnTypeParam == 0)
             {
-                pawnType = type.Pawn;
+                pawnType = PawnType.Pawn;
+                if (kleur == "Black")
+                {
+                    avatar = "Pawnblack" ;
+                }
+                avatar += "Pawnwhite";
+                //moveset = PawnMove.Pawn;
             }
             else if (pawnTypeParam == 1)
             {
-                pawnType = type.King;
+                pawnType = PawnType.King;
+                if (kleur == "Black")
+                {
+                    avatar += "Kingblack";
+                }
+                avatar += "Kingwhite";
+                //moveset = PawnMove.King;
             }
             else if (pawnTypeParam == 2)
             {
-                pawnType = type.Queen;
+                pawnType = PawnType.Queen;
+                if (kleur == "Black")
+                {
+                    avatar += "Queenblack";
+                }
+                avatar += "Queenwhite";
+                //moveset = PawnMove.Queen;
             }
             else if (pawnTypeParam == 3)
             {
-                pawnType = type.Horse;
+                pawnType = PawnType.Horse;
+                if (kleur == "Black")
+                {
+                    avatar += "Horseblack";
+                }
+                avatar = "Horsewhite";
+                //moveset = PawnMove.Horse;
             }
             else if (pawnTypeParam == 4)
             {
-                pawnType = type.Tower;
+                pawnType = PawnType.Tower;
+                if (kleur == "Black")
+                {
+                    avatar += "Towerblack";
+                }
+                avatar = "Towerwhite";
+                //moveset = PawnMove.Tower;
             }
             else if (pawnTypeParam == 1)
             {
-                pawnType = type.Bishop;
+                pawnType = PawnType.Bishop;
+                if (kleur == "Black")
+                {
+                    avatar += "Bishopblack";
+                }
+                avatar += "Bishopwhite";
+                //moveset = PawnMove.Bishop;
             }
 
-
-            //switch (pawnType)
-            //{
-            //    case type.Pawn:
-            //        Moveset = PawnMove.Pawn;
-            //        break;
-            //    case type.King:
-            //        Moveset = PawnMove.King;
-            //        break;
-            //    case type.Queen:
-            //        Moveset = PawnMove.Queen;
-            //        break;
-            //    case type.Horse:
-            //        Moveset = PawnMove.Horse;
-            //        break;
-            //    case type.Tower:
-            //        Moveset = PawnMove.Tower;
-            //        break;
-            //    case type.Bishop:
-            //        Moveset = PawnMove.Bishop;
-            //        break;
-            //    default:
-            //        break;
-            //}
             #endregion
 
 

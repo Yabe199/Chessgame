@@ -28,6 +28,7 @@ namespace Chessgame
         Label labelToMove = null;
         bool pawnSelected = false;
         string currentMoveDescription = string.Empty;
+        Pawn testpawn = new Pawn(1, "black");
 
         private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination)
         {
@@ -124,7 +125,7 @@ namespace Chessgame
                     }
                     else if (label.Name == "E8")
                     {
-                        label.Content = "King Black";
+                        label.Content = testpawn;
                     }
 
 
@@ -254,12 +255,15 @@ namespace Chessgame
         {
             bool selection = false;
 
-            if(selectedLabel.Content.GetType() == typeof(Pawn))
+            if (selectedLabel.Content != null)
             {
-                Pawn selectedPawn = (Pawn)selectedLabel.Content;
-                if (selectedPawn.pawnColour == PlayerColour)
+                if (selectedLabel.Content.GetType() == typeof(Pawn))
                 {
-                    selection = true;
+                    Pawn selectedPawn = (Pawn)selectedLabel.Content;
+                    if (selectedPawn.pawnColour == PlayerColour)
+                    {
+                        selection = true;
+                    }
                 }
             }
 
@@ -273,10 +277,13 @@ namespace Chessgame
             if (pawnSelected == false)
             {
                 pawnSelected = CheckSelectedField(activePlayer.Color, label);
-                labelToMove = label;
-                label.BorderBrush = Brushes.Red;
-                label.BorderThickness = new Thickness(3);
-                lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null);
+                if (pawnSelected)
+                {
+                    labelToMove = label;
+                    label.BorderBrush = Brushes.Red;
+                    label.BorderThickness = new Thickness(3);
+                    lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null);
+                }
             }
             else
             {

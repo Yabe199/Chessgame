@@ -36,11 +36,11 @@ namespace Chessgame.Lib.Entities
 
             if (Index == 0)
             {
-                playerColor = colour.Black;
+                playerColor = colour.White;
             }
             else
             {
-                playerColor = colour.White;
+                playerColor = colour.Black;
             }
 
             return playerColor;

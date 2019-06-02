@@ -37,12 +37,13 @@ namespace Chessgame.Lib.Entities
 
         public Player(string name, int index, int score)
         {
-            
+            PawnService pawnService;
+
             Name = name.Trim();
             Index = index;
             TakenPawns = new List<Pawn>();
             Score = score;
-            PawnService pawnService = new PawnService(Color);
+            pawnService = new PawnService(Color);
             PlayerPawns = pawnService.Pawns;
         }
     }

@@ -26,6 +26,7 @@ namespace Chessgame
         PlayerService chessPlayers;
         Player activePlayer;
         Label labelToMove = null;
+        Label labelToMoveTo = null;
         Pawn selectedPawn;
         bool pawnSelected = false;
         string currentMoveDescription = string.Empty;
@@ -40,7 +41,7 @@ namespace Chessgame
         private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination, Pawn thisPawn)
         {
             string description = string.Empty;
-            
+
             if (moveOrigin == null && moveDestination == null)
             {
                 description = $"{playerName} is up.";
@@ -267,7 +268,7 @@ namespace Chessgame
             InitializeComponent();
             chessPlayers = new PlayerService();
         }
-        
+
         private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
@@ -329,13 +330,13 @@ namespace Chessgame
             Pawn player2pawn6 = new Pawn(0, PlayerTwoColour);
             Pawn player2pawn7 = new Pawn(0, PlayerTwoColour);
             Pawn player2pawn8 = new Pawn(0, PlayerTwoColour);
-                  
+
 
 
 
         }
 
-        public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Label label = sender as Label;
 
@@ -356,6 +357,7 @@ namespace Chessgame
             }
             else
             {
+                labelToMoveTo = label;
                 newPosition[0] = Grid.GetColumn(label);
                 newPosition[1] = Grid.GetRow(label);
                 label.BorderBrush = Brushes.Green;
@@ -365,8 +367,34 @@ namespace Chessgame
             }
         }
 
+        private void VerifyMove()
+        {
+
+        }
+
+        private void CheckNewPosition()
+        {
+            if (labelToMoveTo.Content.GetType() == typeof(Pawn))
+            {
+                Label stolenPawn = new Label
+                {
+                    Content = labelToMoveTo.Content
+                };
+
+                if (activePlayer.Index == 0)
+                {
+                    grdPlayerOne.Children.Add(stolenPawn);
+                }
+                else
+                {
+                    grdPlayerTwo.Children.Add(stolenPawn);
+                }
+            }
+        }
+
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            CheckNewPosition();
             ExecuteMove();
             ResetGridSelections();
             ResetValues();

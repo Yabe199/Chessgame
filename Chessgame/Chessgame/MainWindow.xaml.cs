@@ -250,13 +250,29 @@ namespace Chessgame
 
         }
 
+        private bool CheckSelectedField(colour PlayerColour, Label selectedLabel)
+        {
+            bool selection = false;
+
+            if(selectedLabel.Content.GetType() == typeof(Pawn))
+            {
+                Pawn selectedPawn = (Pawn)selectedLabel.Content;
+                if (selectedPawn.pawnColour == PlayerColour)
+                {
+                    selection = true;
+                }
+            }
+
+            return selection;
+        }
+
         public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Label label = sender as Label;
 
             if (pawnSelected == false)
             {
-                pawnSelected = true;
+                pawnSelected = CheckSelectedField(activePlayer.Color, label);
                 labelToMove = label;
                 label.BorderBrush = Brushes.Red;
                 label.BorderThickness = new Thickness(3);

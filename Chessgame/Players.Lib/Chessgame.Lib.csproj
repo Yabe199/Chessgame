@@ -44,7 +44,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Colour.cs" />
     <Compile Include="Entities\Pawn.cs" />
+    <Compile Include="Entities\PawnType.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\TypesOfPieces.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

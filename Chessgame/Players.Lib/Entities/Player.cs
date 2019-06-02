@@ -1,5 +1,6 @@
 ﻿using Chessgame.Lib.Entities;
 using Chessgame.Lib.Services;
+using Pawns.Lib.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

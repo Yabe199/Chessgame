@@ -14,36 +14,36 @@ namespace Chessgame.Lib.Entities
         public string Name { get; set; }
         public int Score { get; set; }
         public int Index { get; set; }
-        public colour Color { get; set; }
+        public colour Color
+        {
+            get
+            {
+                colour playerColor;
+
+                if (Index == 0)
+                {
+                    playerColor = colour.White;
+                }
+                else
+                {
+                    playerColor = colour.Black;
+                }
+
+                return playerColor;
+            } 
+        }
         public List<Pawn> PlayerPawns { get; set; }
         public List<Pawn> TakenPawns { get; set; }
 
         public Player(string name, int index, int score)
         {
-            PawnService pawnService = new PawnService(AssignColor(index)); 
             
             Name = name;
-            Color = AssignColor(index);
             Index = index;
-            PlayerPawns = pawnService.Pawns;
             TakenPawns = new List<Pawn>();
             Score = score;
-        }
-
-        private colour AssignColor(int index)
-        {
-            colour playerColor;
-
-            if (Index == 0)
-            {
-                playerColor = colour.White;
-            }
-            else
-            {
-                playerColor = colour.Black;
-            }
-
-            return playerColor;
+            PawnService pawnService = new PawnService(Color);
+            PlayerPawns = pawnService.Pawns;
         }
     }
 }

@@ -29,7 +29,9 @@ namespace Chessgame
         Pawn selectedPawn;
         bool pawnSelected = false;
         string currentMoveDescription = string.Empty;
+
         Pawn testpawn = new Pawn(1, "White");
+
 
         private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination, Pawn thisPawn)
         {
@@ -58,6 +60,25 @@ namespace Chessgame
             scoreInfo = $"Score: {playerScore}";
 
             return scoreInfo;
+        }
+
+        private bool CheckSelectedField(colour PlayerColour, Label selectedLabel)
+        {
+            bool selection = false;
+
+            if (selectedLabel.Content != null)
+            {
+                if (selectedLabel.Content.GetType() == typeof(Pawn))
+                {
+                    Pawn selectedPawn = (Pawn)selectedLabel.Content;
+                    if (selectedPawn.pawnColour == PlayerColour)
+                    {
+                        selection = true;
+                    }
+                }
+            }
+
+            return selection;
         }
 
         #region ChessboardGrid
@@ -263,25 +284,6 @@ namespace Chessgame
 
         }
 
-        private bool CheckSelectedField(colour PlayerColour, Label selectedLabel)
-        {
-            bool selection = false;
-
-            if (selectedLabel.Content != null)
-            {
-                if (selectedLabel.Content.GetType() == typeof(Pawn))
-                {
-                    Pawn selectedPawn = (Pawn)selectedLabel.Content;
-                    if (selectedPawn.pawnColour == PlayerColour)
-                    {
-                        selection = true;
-                    }
-                }
-            }
-
-            return selection;
-        }
-
         public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Label label = sender as Label;
@@ -306,23 +308,6 @@ namespace Chessgame
                 lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, label, selectedPawn);
                 grdChessboard.IsEnabled = false;
             }
-
-        //    if (selectedLabel == null)
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        int[] cord = { Grid.GetColumn(selectedLabel), Grid.GetRow(selectedLabel), Grid.GetColumn(label), Grid.GetRow(label) };
-        //        Grid.SetColumn(label, cord[0]);
-        //        Grid.SetRow(label, cord[1]);
-        //        Grid.SetColumn(selectedLabel, cord[2]);
-        //        Grid.SetRow(selectedLabel, cord[3]);
-        //        label.BorderBrush = null;
-        //        label.BorderThickness = new Thickness(0);
-        //        lblPlayerOne.Focus();
-        //        selectedLabel = null;
-        //    }
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)

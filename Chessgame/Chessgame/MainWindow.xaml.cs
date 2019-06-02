@@ -34,8 +34,18 @@ namespace Chessgame
         int[] oldPosition = new int[2];
 
 
-        Pawn testpawn1 = new Pawn(1, "White");
-        Pawn testpawn2 = new Pawn(1, "Black");
+        Pawn testpawnWhite0 = new Pawn(0, "White");
+        Pawn testpawnWhite1 = new Pawn(1, "White");
+        Pawn testpawnWhite2 = new Pawn(2, "White");
+        Pawn testpawnWhite3 = new Pawn(3, "White");
+        Pawn testpawnWhite4 = new Pawn(4, "White");
+        Pawn testpawnWhite5 = new Pawn(5, "White");
+        Pawn testpawnBlack0 = new Pawn(0, "Black");
+        Pawn testpawnBlack1 = new Pawn(1, "Black");
+        Pawn testpawnBlack2 = new Pawn(2, "Black");
+        Pawn testpawnBlack3 = new Pawn(3, "Black");
+        Pawn testpawnBlack4 = new Pawn(4, "Black");
+        Pawn testpawnBlack5 = new Pawn(5, "Black");
 
 
         private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination, Pawn thisPawn)
@@ -117,51 +127,51 @@ namespace Chessgame
 
                     if (y == 1)
                     {
-                        label.Content = "Pawn White";
+                        label.Content = testpawnWhite0;
                     }
                     else if (label.Name == "A1" || label.Name == "H1")
                     {
-                        label.Content = "Rook White";
+                        label.Content = testpawnWhite4;
                     }
                     else if (label.Name == "B1" || label.Name == "G1")
                     {
-                        label.Content = "Knight White";
+                        label.Content = testpawnWhite3;
                     }
                     else if (label.Name == "C1" || label.Name == "F1")
                     {
-                        label.Content = "Bishop White";
+                        label.Content = testpawnBlack5;
                     }
                     else if (label.Name == "D1")
                     {
-                        label.Content = "Queen White";
+                        label.Content = testpawnWhite2;
                     }
                     else if (label.Name == "E1")
                     {
-                        label.Content = testpawn1;
+                        label.Content = testpawnWhite1;
                     }
                     else if (y == 6)
                     {
-                        label.Content = "Pawn Black";
+                        label.Content = testpawnBlack0;
                     }
                     else if (label.Name == "A8" || label.Name == "H8")
                     {
-                        label.Content = "Rook Black";
+                        label.Content = testpawnBlack4;
                     }
                     else if (label.Name == "B8" || label.Name == "G8")
                     {
-                        label.Content = "Knight Black";
+                        label.Content = testpawnBlack3;
                     }
                     else if (label.Name == "C8" || label.Name == "F8")
                     {
-                        label.Content = "Bishop Black";
+                        label.Content = testpawnBlack5;
                     }
                     else if (label.Name == "D8")
                     {
-                        label.Content = "Queen Black";
+                        label.Content = testpawnBlack2;
                     }
                     else if (label.Name == "E8")
                     {
-                        label.Content = testpawn2;
+                        label.Content = testpawnBlack1;
                     }
 
 
@@ -220,24 +230,6 @@ namespace Chessgame
 
         #region Gameplay
 
-        void ExecuteMove()
-        {
-            foreach (Control child in grdChessboard.Children)
-            {
-                Label currentLabel = (Label)child;
-                int[] currentPosition = { Grid.GetColumn(child), Grid.GetRow(child) };
-
-                if (oldPosition[0] == currentPosition[0] && oldPosition[1] == currentPosition[1])
-                {
-                    currentLabel.Content = null;
-                }
-
-                if (newPosition[0] == currentPosition[0] && newPosition[1] == currentPosition[1])
-                {
-                    currentLabel.Content = selectedPawn;
-                }
-            }
-        }
 
         void ResetValues()
         {
@@ -260,6 +252,8 @@ namespace Chessgame
                 activePlayer = chessPlayers.Players[0];
             }
         }
+
+        
 
         #endregion
 
@@ -367,18 +361,38 @@ namespace Chessgame
             }
         }
 
+        void ExecuteMove()
+        {
+            foreach (Control child in grdChessboard.Children)
+            {
+                Label currentLabel = (Label)child;
+                int[] currentPosition = { Grid.GetColumn(child), Grid.GetRow(child) };
+
+                if (oldPosition[0] == currentPosition[0] && oldPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = null;
+                }
+
+                if (newPosition[0] == currentPosition[0] && newPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = selectedPawn;
+                }
+            }
+        }
+
         private void VerifyMove()
         {
 
         }
 
-        private void CheckNewPosition()
+        private void TakePawn()
         {
             if (labelToMoveTo.Content.GetType() == typeof(Pawn))
             {
+                Pawn aPawn = (Pawn)labelToMoveTo.Content;
                 Label stolenPawn = new Label
                 {
-                    Content = labelToMoveTo.Content
+                    Content = aPawn
                 };
 
                 if (activePlayer.Index == 0)
@@ -391,16 +405,36 @@ namespace Chessgame
                 }
             }
         }
+        private bool CheckNewPosition()
+        {
+            bool permitted = false;
+
+            if (labelToMoveTo.Content == null || selectedPawn.pawnColour != activePlayer.Color || labelToMoveTo.Content.GetType() == typeof(Pawn))
+            {
+                permitted = true;
+            }
+
+            return permitted;
+        }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            CheckNewPosition();
-            ExecuteMove();
-            ResetGridSelections();
-            ResetValues();
-            ChangeActivePlayer();
+            bool canMoveHere = CheckNewPosition();
 
-            lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
+            VerifyMove();
+            if (canMoveHere)
+            {
+                if (labelToMoveTo.Content != null)
+                {
+                    TakePawn();
+                }
+                ExecuteMove();
+                ResetGridSelections();
+                ResetValues();
+                ChangeActivePlayer();
+
+                lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
+            }
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)

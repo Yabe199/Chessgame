@@ -66,7 +66,7 @@ namespace Chessgame.Lib.Entities
             {
                 pawnType = type.Rook;
             }
-            else if (pawnTypeParam == 1)
+            else if (pawnTypeParam == 5)
             {
                 pawnType = type.Bishop;
             }
@@ -98,6 +98,10 @@ namespace Chessgame.Lib.Entities
 
 
 
+        }
+        public override string ToString()
+        {
+            return pawnType.ToString();
         }
     }
 }

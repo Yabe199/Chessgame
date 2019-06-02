@@ -1,4 +1,5 @@
 ﻿using Players.Lib.Entities;
+using Players.Lib.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,9 @@ namespace Chessgame.Lib.Entities
         public bool turn { get; set; }
         public Colour pawnColour { get; set; }
         public PawnType pawnType { get; set; }
-        //public PawnMove Moveset { get; set; }
+        public String avatar { get; set; }
+        public Point location { get; set; }
+        //public PawnMove moveset { get; set; }
 
         #endregion
 
@@ -23,7 +26,8 @@ namespace Chessgame.Lib.Entities
         public Pawn(int pawnTypeParam, string kleur)
         {
             turn = false;
-
+            avatar = AppDomain.CurrentDomain.BaseDirectory + "/images/";
+            //location = new Point(0, 0);
             //set colour of pawn
             if (kleur == "Black")
             {
@@ -42,52 +46,64 @@ namespace Chessgame.Lib.Entities
             if (pawnTypeParam == 0)
             {
                 pawnType = PawnType.Pawn;
+                if (kleur == "Black")
+                {
+                    avatar = "Pawnblack" ;
+                }
+                avatar += "Pawnwhite";
+                //moveset = PawnMove.Pawn;
             }
             else if (pawnTypeParam == 1)
             {
                 pawnType = PawnType.King;
+                if (kleur == "Black")
+                {
+                    avatar += "Kingblack";
+                }
+                avatar += "Kingwhite";
+                //moveset = PawnMove.King;
             }
             else if (pawnTypeParam == 2)
             {
                 pawnType = PawnType.Queen;
+                if (kleur == "Black")
+                {
+                    avatar += "Queenblack";
+                }
+                avatar += "Queenwhite";
+                //moveset = PawnMove.Queen;
             }
             else if (pawnTypeParam == 3)
             {
                 pawnType = PawnType.Horse;
+                if (kleur == "Black")
+                {
+                    avatar += "Horseblack";
+                }
+                avatar = "Horsewhite";
+                //moveset = PawnMove.Horse;
             }
             else if (pawnTypeParam == 4)
             {
                 pawnType = PawnType.Tower;
+                if (kleur == "Black")
+                {
+                    avatar += "Towerblack";
+                }
+                avatar = "Towerwhite";
+                //moveset = PawnMove.Tower;
             }
             else if (pawnTypeParam == 1)
             {
                 pawnType = PawnType.Bishop;
+                if (kleur == "Black")
+                {
+                    avatar += "Bishopblack";
+                }
+                avatar += "Bishopwhite";
+                //moveset = PawnMove.Bishop;
             }
 
-
-            //switch (pawnType)
-            //{
-            //    case type.Pawn:
-            //        Moveset = PawnMove.Pawn;
-            //        break;
-            //    case type.King:
-            //        Moveset = PawnMove.King;
-            //        break;
-            //    case type.Queen:
-            //        Moveset = PawnMove.Queen;
-            //        break;
-            //    case type.Horse:
-            //        Moveset = PawnMove.Horse;
-            //        break;
-            //    case type.Tower:
-            //        Moveset = PawnMove.Tower;
-            //        break;
-            //    case type.Bishop:
-            //        Moveset = PawnMove.Bishop;
-            //        break;
-            //    default:
-            //        break;
-            //}
             #endregion
 
 

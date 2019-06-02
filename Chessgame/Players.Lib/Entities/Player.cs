@@ -38,7 +38,7 @@ namespace Chessgame.Lib.Entities
         public Player(string name, int index, int score)
         {
             
-            Name = name;
+            Name = name.Trim();
             Index = index;
             TakenPawns = new List<Pawn>();
             Score = score;

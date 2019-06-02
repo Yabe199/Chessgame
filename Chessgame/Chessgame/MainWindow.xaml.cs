@@ -29,8 +29,12 @@ namespace Chessgame
         Pawn selectedPawn;
         bool pawnSelected = false;
         string currentMoveDescription = string.Empty;
+        int[] newPosition = new int[2];
+        int[] oldPosition = new int[2];
 
-        Pawn testpawn = new Pawn(1, "White");
+
+        Pawn testpawn1 = new Pawn(1, "White");
+        Pawn testpawn2 = new Pawn(1, "Black");
 
 
         private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination, Pawn thisPawn)
@@ -132,7 +136,7 @@ namespace Chessgame
                     }
                     else if (label.Name == "E1")
                     {
-                        label.Content = testpawn;
+                        label.Content = testpawn1;
                     }
                     else if (y == 6)
                     {
@@ -156,7 +160,7 @@ namespace Chessgame
                     }
                     else if (label.Name == "E8")
                     {
-                        label.Content = "King Black";
+                        label.Content = testpawn2;
                     }
 
 
@@ -184,6 +188,8 @@ namespace Chessgame
 
         void ResetGridSelections()
         {
+            grdChessboard.IsEnabled = true;
+
             foreach (Control child in grdChessboard.Children)
             {
                 child.Margin = new Thickness(0);
@@ -291,11 +297,13 @@ namespace Chessgame
             if (pawnSelected == false)
             {
                 pawnSelected = CheckSelectedField(activePlayer.Color, label);
+
                 if (pawnSelected)
                 {
                     selectedPawn = (Pawn)label.Content;
-
                     labelToMove = label;
+                    oldPosition[0] = Grid.GetColumn(label);
+                    oldPosition[1] = Grid.GetRow(label);
                     label.BorderBrush = Brushes.Red;
                     label.BorderThickness = new Thickness(3);
                     lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null, selectedPawn);
@@ -303,6 +311,8 @@ namespace Chessgame
             }
             else
             {
+                newPosition[0] = Grid.GetColumn(label);
+                newPosition[1] = Grid.GetRow(label);
                 label.BorderBrush = Brushes.Green;
                 label.BorderThickness = new Thickness(3);
                 lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, label, selectedPawn);
@@ -310,18 +320,60 @@ namespace Chessgame
             }
         }
 
+        void ExecuteMove()
+        {
+            foreach (Control child in grdChessboard.Children)
+            {
+                Label currentLabel = (Label)child;
+                int[] currentPosition = { Grid.GetColumn(child), Grid.GetRow(child) };
+
+                if (oldPosition[0] == currentPosition[0] && oldPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = null;
+                }
+
+                if (newPosition[0] == currentPosition[0] && newPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = selectedPawn;
+                }
+            }
+        }
+
+        void ResetValues()
+        {
+            oldPosition = new int[2];
+            newPosition = new int[2];
+            labelToMove = null;
+            labelToMove = null;
+            pawnSelected = false;
+            selectedPawn = null;
+        }
+
+        private void ChangeActivePlayer()
+        {
+            if (activePlayer.Index == 0)
+            {
+                activePlayer = chessPlayers.Players[1];
+            }
+            else
+            {
+                activePlayer = chessPlayers.Players[0];
+            }
+        }
+
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-
+            ExecuteMove();
+            ResetGridSelections();
+            ResetValues();
+            ChangeActivePlayer();
+            lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-            labelToMove = null;
-            pawnSelected = false;
-            
             ResetGridSelections();
-            grdChessboard.IsEnabled = true;
+            ResetValues();
             lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
         }
     }

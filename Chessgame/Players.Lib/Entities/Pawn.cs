@@ -71,7 +71,6 @@ namespace Chessgame.Lib.Entities
                 pawnType = type.Bishop;
             }
 
-
             //switch (pawnType)
             //{
             //    case type.Pawn:
@@ -96,6 +95,7 @@ namespace Chessgame.Lib.Entities
             //        break;
             //}
             #endregion
+
 
 
         }

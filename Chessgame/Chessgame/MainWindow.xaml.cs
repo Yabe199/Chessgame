@@ -26,25 +26,26 @@ namespace Chessgame
         PlayerService chessPlayers;
         Player activePlayer;
         Label labelToMove = null;
+        Pawn selectedPawn;
         bool pawnSelected = false;
         string currentMoveDescription = string.Empty;
-        Pawn testpawn = new Pawn(1, "black");
+        Pawn testpawn = new Pawn(1, "White");
 
-        private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination)
+        private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination, Pawn thisPawn)
         {
             string description = string.Empty;
-
+            
             if (moveOrigin == null && moveDestination == null)
             {
                 description = $"{playerName} is up.";
             }
             else if (moveOrigin != null && moveDestination == null)
             {
-                description = $"{playerName} moves {moveOrigin.Content.ToString()} from {moveOrigin.Name} to ...";
+                description = $"{playerName} moves {thisPawn.pawnType.ToString()} from {moveOrigin.Name} to ...";
             }
             else
             {
-                description = $"{playerName} moves {moveOrigin.Content.ToString()} from {moveOrigin.Name} to {moveDestination.Name}.";
+                description = $"{playerName} moves {thisPawn.pawnType.ToString()} from {moveOrigin.Name} to {moveDestination.Name}.";
             }
 
             return description;
@@ -101,7 +102,7 @@ namespace Chessgame
                     }
                     else if (label.Name == "E1")
                     {
-                        label.Content = "King White";
+                        label.Content = testpawn;
                     }
                     else if (y == 6)
                     {
@@ -125,7 +126,7 @@ namespace Chessgame
                     }
                     else if (label.Name == "E8")
                     {
-                        label.Content = testpawn;
+                        label.Content = "King Black";
                     }
 
 
@@ -203,7 +204,7 @@ namespace Chessgame
             playerOne = new Player(playerOneName, 0, 0);
             playerTwo = new Player(playerTwoName, 1, 0);
             activePlayer = playerOne;
-            currentMoveDescription = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null);
+            currentMoveDescription = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null, null);
 
             chessPlayers.AddPlayer(playerOne);
             chessPlayers.AddPlayer(playerTwo);
@@ -279,17 +280,19 @@ namespace Chessgame
                 pawnSelected = CheckSelectedField(activePlayer.Color, label);
                 if (pawnSelected)
                 {
+                    selectedPawn = (Pawn)label.Content;
+
                     labelToMove = label;
                     label.BorderBrush = Brushes.Red;
                     label.BorderThickness = new Thickness(3);
-                    lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null);
+                    lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null, selectedPawn);
                 }
             }
             else
             {
                 label.BorderBrush = Brushes.Green;
                 label.BorderThickness = new Thickness(3);
-                lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, label);
+                lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, label, selectedPawn);
                 grdChessboard.IsEnabled = false;
             }
 
@@ -323,7 +326,7 @@ namespace Chessgame
             
             ResetGridSelections();
             grdChessboard.IsEnabled = true;
-            lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null);
+            lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
         }
     }
 

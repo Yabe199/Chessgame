@@ -51,6 +51,15 @@ namespace Chessgame
             return description;
         }
 
+        private string scoreString(int playerScore)
+        {
+            string scoreInfo;
+
+            scoreInfo = $"Score: {playerScore}";
+
+            return scoreInfo;
+        }
+
         #region ChessboardGrid
 
         private void CreateChessboard()
@@ -211,6 +220,8 @@ namespace Chessgame
 
             lblPlayerOne.Content = playerOne.Name;
             lblPlayerTwo.Content = playerTwo.Name;
+            lblScorePlayerOne.Content = scoreString(playerOne.Score);
+            lblScorePlayerTwo.Content = scoreString(playerTwo.Score);
             lblCurrentMove.Content = currentMoveDescription;
 
             SwitchToGrid(grdChessGame, grdStartUp);

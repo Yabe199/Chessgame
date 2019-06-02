@@ -81,6 +81,38 @@
                     <ColumnDefinition x:Name="columnH"/>
                 </Grid.ColumnDefinitions>
             </Grid>
+            <Grid x:Name="grdPlayerOne" HorizontalAlignment="Left" Height="450" Margin="11,200,0,0" VerticalAlignment="Top" Width="225">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="Row01"/>
+                    <RowDefinition x:Name="Row02"/>
+                    <RowDefinition x:Name="Row03"/>
+                    <RowDefinition x:Name="Row04"/>
+                    <RowDefinition x:Name="Row05"/>
+                    <RowDefinition x:Name="Row06"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="Column0A"/>
+                    <ColumnDefinition x:Name="column0B"/>
+                    <ColumnDefinition x:Name="column0C"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Label x:Name="lblScorePlayerOne" Content="Score: " HorizontalAlignment="Left" Height="30" Margin="11,152,0,0" VerticalAlignment="Top" Width="94"/>
+            <Grid x:Name="grdPlayerTwo" HorizontalAlignment="Left" Height="450" Margin="911,200,0,0" VerticalAlignment="Top" Width="225">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="Row11"/>
+                    <RowDefinition x:Name="Row12"/>
+                    <RowDefinition x:Name="Row13"/>
+                    <RowDefinition x:Name="Row14"/>
+                    <RowDefinition x:Name="Row15"/>
+                    <RowDefinition x:Name="Row16"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="Column1A"/>
+                    <ColumnDefinition x:Name="column1B"/>
+                    <ColumnDefinition x:Name="column1C"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Label x:Name="lblScorePlayerTwo" Content="Score: " HorizontalAlignment="Left" Height="30" Margin="911,152,0,0" VerticalAlignment="Top" Width="94"/>
         </Grid>
         <Label x:Name="lblTest" Content="Label" HorizontalAlignment="Left" Height="58" Margin="1300,-24,0,0" VerticalAlignment="Top" Width="61"/>
     </Grid>

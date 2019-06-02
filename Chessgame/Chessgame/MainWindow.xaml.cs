@@ -217,6 +217,51 @@ namespace Chessgame
 
         #endregion
 
+        #region Gameplay
+
+        void ExecuteMove()
+        {
+            foreach (Control child in grdChessboard.Children)
+            {
+                Label currentLabel = (Label)child;
+                int[] currentPosition = { Grid.GetColumn(child), Grid.GetRow(child) };
+
+                if (oldPosition[0] == currentPosition[0] && oldPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = null;
+                }
+
+                if (newPosition[0] == currentPosition[0] && newPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = selectedPawn;
+                }
+            }
+        }
+
+        void ResetValues()
+        {
+            oldPosition = new int[2];
+            newPosition = new int[2];
+            labelToMove = null;
+            labelToMove = null;
+            pawnSelected = false;
+            selectedPawn = null;
+        }
+
+        private void ChangeActivePlayer()
+        {
+            if (activePlayer.Index == 0)
+            {
+                activePlayer = chessPlayers.Players[1];
+            }
+            else
+            {
+                activePlayer = chessPlayers.Players[0];
+            }
+        }
+
+        #endregion
+
         public MainWindow()
         {
             InitializeComponent();
@@ -320,53 +365,13 @@ namespace Chessgame
             }
         }
 
-        void ExecuteMove()
-        {
-            foreach (Control child in grdChessboard.Children)
-            {
-                Label currentLabel = (Label)child;
-                int[] currentPosition = { Grid.GetColumn(child), Grid.GetRow(child) };
-
-                if (oldPosition[0] == currentPosition[0] && oldPosition[1] == currentPosition[1])
-                {
-                    currentLabel.Content = null;
-                }
-
-                if (newPosition[0] == currentPosition[0] && newPosition[1] == currentPosition[1])
-                {
-                    currentLabel.Content = selectedPawn;
-                }
-            }
-        }
-
-        void ResetValues()
-        {
-            oldPosition = new int[2];
-            newPosition = new int[2];
-            labelToMove = null;
-            labelToMove = null;
-            pawnSelected = false;
-            selectedPawn = null;
-        }
-
-        private void ChangeActivePlayer()
-        {
-            if (activePlayer.Index == 0)
-            {
-                activePlayer = chessPlayers.Players[1];
-            }
-            else
-            {
-                activePlayer = chessPlayers.Players[0];
-            }
-        }
-
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             ExecuteMove();
             ResetGridSelections();
             ResetValues();
             ChangeActivePlayer();
+
             lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
         }
 
@@ -374,6 +379,7 @@ namespace Chessgame
         {
             ResetGridSelections();
             ResetValues();
+
             lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
         }
     }

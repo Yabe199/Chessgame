@@ -96,6 +96,18 @@ namespace Chessgame
             return selection;
         }
 
+        private bool CheckNewPosition()
+        {
+            bool permitted = false;
+
+            if (labelToMoveTo.Content == null || selectedPawn.pawnColour != activePlayer.Color || labelToMoveTo.Content.GetType() == typeof(Pawn))
+            {
+                permitted = true;
+            }
+
+            return permitted;
+        }
+
         #region ChessboardGrid
 
         private void CreateChessboard()
@@ -229,8 +241,7 @@ namespace Chessgame
         #endregion
 
         #region Gameplay
-
-
+        
         void ResetValues()
         {
             oldPosition = new int[2];
@@ -253,7 +264,47 @@ namespace Chessgame
             }
         }
 
-        
+        private void TakePawn()
+        {
+            if (labelToMoveTo.Content.GetType() == typeof(Pawn))
+            {
+                Pawn aPawn = (Pawn)labelToMoveTo.Content;
+                Label stolenPawn = new Label
+                {
+                    Content = aPawn
+                };
+
+                if (activePlayer.Index == 0)
+                {
+                    chessPlayers.Players[0].TakenPawns.Add(aPawn);
+                    grdPlayerOne.Children.Add(stolenPawn);
+                }
+                else
+                {
+                    chessPlayers.Players[1].TakenPawns.Add(aPawn);
+                    grdPlayerTwo.Children.Add(stolenPawn);
+                }
+            }
+        }
+
+        void ExecuteMove()
+        {
+            foreach (Control child in grdChessboard.Children)
+            {
+                Label currentLabel = (Label)child;
+                int[] currentPosition = { Grid.GetColumn(child), Grid.GetRow(child) };
+
+                if (oldPosition[0] == currentPosition[0] && oldPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = null;
+                }
+
+                if (newPosition[0] == currentPosition[0] && newPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = selectedPawn;
+                }
+            }
+        }
 
         #endregion
 
@@ -361,60 +412,9 @@ namespace Chessgame
             }
         }
 
-        void ExecuteMove()
-        {
-            foreach (Control child in grdChessboard.Children)
-            {
-                Label currentLabel = (Label)child;
-                int[] currentPosition = { Grid.GetColumn(child), Grid.GetRow(child) };
-
-                if (oldPosition[0] == currentPosition[0] && oldPosition[1] == currentPosition[1])
-                {
-                    currentLabel.Content = null;
-                }
-
-                if (newPosition[0] == currentPosition[0] && newPosition[1] == currentPosition[1])
-                {
-                    currentLabel.Content = selectedPawn;
-                }
-            }
-        }
-
         private void VerifyMove()
         {
 
-        }
-
-        private void TakePawn()
-        {
-            if (labelToMoveTo.Content.GetType() == typeof(Pawn))
-            {
-                Pawn aPawn = (Pawn)labelToMoveTo.Content;
-                Label stolenPawn = new Label
-                {
-                    Content = aPawn
-                };
-
-                if (activePlayer.Index == 0)
-                {
-                    grdPlayerOne.Children.Add(stolenPawn);
-                }
-                else
-                {
-                    grdPlayerTwo.Children.Add(stolenPawn);
-                }
-            }
-        }
-        private bool CheckNewPosition()
-        {
-            bool permitted = false;
-
-            if (labelToMoveTo.Content == null || selectedPawn.pawnColour != activePlayer.Color || labelToMoveTo.Content.GetType() == typeof(Pawn))
-            {
-                permitted = true;
-            }
-
-            return permitted;
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)

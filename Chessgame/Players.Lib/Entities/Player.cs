@@ -1,4 +1,5 @@
 ﻿using Chessgame.Lib.Entities;
+using Chessgame.Lib.Services;
 using Pawns.Lib.Services;
 using System;
 using System.Collections.Generic;
@@ -7,43 +8,44 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace Players.Lib.Entities
+namespace Chessgame.Lib.Entities
 {
     public class Player
     {
         public string Name { get; set; }
         public int Score { get; set; }
         public int Index { get; set; }
-        public Brush Color { get; set; }
+        public colour Color
+        {
+            get
+            {
+                colour playerColor;
+
+                if (Index == 0)
+                {
+                    playerColor = colour.White;
+                }
+                else
+                {
+                    playerColor = colour.Black;
+                }
+
+                return playerColor;
+            } 
+        }
         public List<Pawn> PlayerPawns { get; set; }
         public List<Pawn> TakenPawns { get; set; }
 
         public Player(string name, int index, int score)
         {
-            PawnService pawnService = new PawnService(); 
-            
-            Name = name;
-            Color = AssignColor(index);
+            PawnService pawnService;
+
+            Name = name.Trim();
             Index = index;
-            PlayerPawns = pawnService.Pawns;
             TakenPawns = new List<Pawn>();
             Score = score;
-        }
-
-        private Brush AssignColor(int index)
-        {
-            Brush playerColor;
-
-            if (Index == 0)
-            {
-                playerColor = Brushes.Black;
-            }
-            else
-            {
-                playerColor = Brushes.White;
-            }
-
-            return playerColor;
+            pawnService = new PawnService(Color);
+            PlayerPawns = pawnService.Pawns;
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows;
 namespace Chessgame.Lib.Entities
 {
 
+
     public class Pawn
     {
         #region properties
@@ -23,6 +24,7 @@ namespace Chessgame.Lib.Entities
         #endregion
 
         #region Constructor
+
         public Pawn(int pawnTypeParam, string kleur)
         {
             turn = false;
@@ -93,7 +95,7 @@ namespace Chessgame.Lib.Entities
                 avatar = "Towerwhite";
                 //moveset = PawnMove.Tower;
             }
-            else if (pawnTypeParam == 1)
+            else if (pawnTypeParam == 5)
             {
                 pawnType = PawnType.Bishop;
                 if (kleur == "Black")
@@ -107,6 +109,11 @@ namespace Chessgame.Lib.Entities
             #endregion
 
 
+
+        }
+        public override string ToString()
+        {
+            return pawnType.ToString();
         }
     }
 }

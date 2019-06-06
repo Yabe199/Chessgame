@@ -8,6 +8,6 @@ namespace Players.Lib.Entities
 {
     public enum PawnType
     {
-        Pawn, King, Queen, Horse, Tower, Bishop
+        Pawn,King,Queen,Horse,Tower,Bishop
     }
 }

@@ -13,6 +13,7 @@ namespace Chessgame.Lib.Entities
             // add movement restrictions
 
 
+
     public class Pawn
     {
         #region properties
@@ -27,8 +28,8 @@ namespace Chessgame.Lib.Entities
 
 
         #region Constructor
+
         public Pawn(int pawnTypeParam, int kleur)
-             
         {
             turn = false;
             avatar = AppDomain.CurrentDomain.BaseDirectory + "/images/";
@@ -120,6 +121,7 @@ namespace Chessgame.Lib.Entities
         {
             string visualisationPawn = pawnType.ToString() + pawnColour.ToString();
             return visualisationPawn;
+
         }
     }
 }

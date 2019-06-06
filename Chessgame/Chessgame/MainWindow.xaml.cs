@@ -12,9 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Players.Lib.Entities;
-using Players.Lib.Services;
 using Chessgame.Lib.Entities;
+using Chessgame.Lib.Services;
 
 
 namespace Chessgame
@@ -24,14 +23,96 @@ namespace Chessgame
     /// </summary>
     public partial class MainWindow : Window
     {
-        PlayerService playerService;
-        Label[,] BoardSquares;
+        PlayerService chessPlayers;
+        Player activePlayer;
+        Label labelToMove = null;
+        Label labelToMoveTo = null;
+        Pawn selectedPawn;
+        bool pawnSelected = false;
+        string currentMoveDescription = string.Empty;
+        int[] newPosition = new int[2];
+        int[] oldPosition = new int[2];
+
+
+        Pawn testpawnWhite0 = new Pawn(0, "White");
+        Pawn testpawnWhite1 = new Pawn(1, "White");
+        Pawn testpawnWhite2 = new Pawn(2, "White");
+        Pawn testpawnWhite3 = new Pawn(3, "White");
+        Pawn testpawnWhite4 = new Pawn(4, "White");
+        Pawn testpawnWhite5 = new Pawn(5, "White");
+        Pawn testpawnBlack0 = new Pawn(0, "Black");
+        Pawn testpawnBlack1 = new Pawn(1, "Black");
+        Pawn testpawnBlack2 = new Pawn(2, "Black");
+        Pawn testpawnBlack3 = new Pawn(3, "Black");
+        Pawn testpawnBlack4 = new Pawn(4, "Black");
+        Pawn testpawnBlack5 = new Pawn(5, "Black");
+
+
+        private string ManageCurrentMoveDescription(string playerName, Label moveOrigin, Label moveDestination, Pawn thisPawn)
+        {
+            string description = string.Empty;
+
+            if (moveOrigin == null && moveDestination == null)
+            {
+                description = $"{playerName} is up.";
+            }
+            else if (moveOrigin != null && moveDestination == null)
+            {
+                description = $"{playerName} moves {thisPawn.pawnType.ToString()} from {moveOrigin.Name} to ...";
+            }
+            else
+            {
+                description = $"{playerName} moves {thisPawn.pawnType.ToString()} from {moveOrigin.Name} to {moveDestination.Name}.";
+            }
+
+            return description;
+        }
+
+        private string scoreString(int playerScore)
+        {
+            string scoreInfo;
+
+            scoreInfo = $"Score: {playerScore}";
+
+            return scoreInfo;
+        }
+
+        private bool CheckSelectedField(colour PlayerColour, Label selectedLabel)
+        {
+            bool selection = false;
+
+            if (selectedLabel.Content != null)
+            {
+                if (selectedLabel.Content.GetType() == typeof(Pawn))
+                {
+                    Pawn selectedPawn = (Pawn)selectedLabel.Content;
+                    if (selectedPawn.pawnColour == PlayerColour)
+                    {
+                        selection = true;
+                    }
+                }
+            }
+
+            return selection;
+        }
+
+        private bool CheckNewPosition()
+        {
+            bool permitted = false;
+
+            if (labelToMoveTo.Content == null || selectedPawn.pawnColour != activePlayer.Color || labelToMoveTo.Content.GetType() == typeof(Pawn))
+            {
+                permitted = true;
+            }
+
+            return permitted;
+        }
 
         #region ChessboardGrid
 
         private void CreateChessboard()
         {
-            BoardSquares = CreateLabels();
+            Label[,] BoardSquares = CreateLabels();
             AddLabelsToGrid(BoardSquares);
         }
 
@@ -54,7 +135,58 @@ namespace Chessgame
                         HorizontalContentAlignment = HorizontalAlignment.Center,
                         VerticalContentAlignment = VerticalAlignment.Center,
                         Foreground = Brushes.Aqua
+
                     };
+
+                    if (y == 1)
+                    {
+                        label.Content = testpawnWhite0;
+                    }
+                    else if (label.Name == "A1" || label.Name == "H1")
+                    {
+                        label.Content = testpawnWhite4;
+                    }
+                    else if (label.Name == "B1" || label.Name == "G1")
+                    {
+                        label.Content = testpawnWhite3;
+                    }
+                    else if (label.Name == "C1" || label.Name == "F1")
+                    {
+                        label.Content = testpawnBlack5;
+                    }
+                    else if (label.Name == "D1")
+                    {
+                        label.Content = testpawnWhite2;
+                    }
+                    else if (label.Name == "E1")
+                    {
+                        label.Content = testpawnWhite1;
+                    }
+                    else if (y == 6)
+                    {
+                        label.Content = testpawnBlack0;
+                    }
+                    else if (label.Name == "A8" || label.Name == "H8")
+                    {
+                        label.Content = testpawnBlack4;
+                    }
+                    else if (label.Name == "B8" || label.Name == "G8")
+                    {
+                        label.Content = testpawnBlack3;
+                    }
+                    else if (label.Name == "C8" || label.Name == "F8")
+                    {
+                        label.Content = testpawnBlack5;
+                    }
+                    else if (label.Name == "D8")
+                    {
+                        label.Content = testpawnBlack2;
+                    }
+                    else if (label.Name == "E8")
+                    {
+                        label.Content = testpawnBlack1;
+                    }
+
 
                     label.MouseLeftButtonDown += Pawn_MouseLeftButtonDown;
 
@@ -73,36 +205,20 @@ namespace Chessgame
                 {
                     grdChessboard.Children.Add(labels[x, y]);
                     Grid.SetColumn(labels[x, y], x);
-                    Grid.SetRow(labels[x, y], y);
+                    Grid.SetRow(labels[x, y], labels.GetLength(1) - y - 1);
                 }
             }
         }
 
-        Label selectedLabel;
-        public void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        void ResetGridSelections()
         {
-            Label label = sender as Label;
+            grdChessboard.IsEnabled = true;
 
-            if (selectedLabel == null)
+            foreach (Control child in grdChessboard.Children)
             {
-                selectedLabel = label;
-                label.BorderBrush = Brushes.Red;
-                label.BorderThickness = new Thickness(3);
-                lblCurrentMove.Content = $"Move {label.Name.ToString()} from {label.Name.ToString()}";
-
-            }
-            else
-            {
-                int[] cord = { Grid.GetColumn(selectedLabel), Grid.GetRow(selectedLabel), Grid.GetColumn(label), Grid.GetRow(label) };
-                Grid.SetColumn(label, cord[0]);
-                Grid.SetRow(label, cord[1]);
-                Grid.SetColumn(selectedLabel, cord[2]);
-                Grid.SetRow(selectedLabel, cord[3]);
-                label.BorderBrush = null;
-                label.BorderThickness = new Thickness(0);
-                lblPlayerOne.Focus();
-                selectedLabel = null;
-                lblCurrentMove.Content += $" to {label.Name.ToString()}";
+                child.Margin = new Thickness(0);
+                child.BorderBrush = null;
+                lblCurrentMove.Content = string.Empty;
             }
         }
 
@@ -196,6 +312,9 @@ namespace Chessgame
             playerService = new PlayerService();
         }
 
+        #region ScreenControl
+
+
         void SwitchToGrid(Grid gridToShow, Grid gridToHide)
         {
             gridToHide.Visibility = Visibility.Hidden;
@@ -209,6 +328,82 @@ namespace Chessgame
             gridToCenter.Margin = new Thickness(0);
         }
 
+        #endregion
+
+        #region Gameplay
+        
+        void ResetValues()
+        {
+            oldPosition = new int[2];
+            newPosition = new int[2];
+            labelToMove = null;
+            labelToMove = null;
+            pawnSelected = false;
+            selectedPawn = null;
+        }
+
+        private void ChangeActivePlayer()
+        {
+            if (activePlayer.Index == 0)
+            {
+                activePlayer = chessPlayers.Players[1];
+            }
+            else
+            {
+                activePlayer = chessPlayers.Players[0];
+            }
+        }
+
+        private void TakePawn()
+        {
+            if (labelToMoveTo.Content.GetType() == typeof(Pawn))
+            {
+                Pawn aPawn = (Pawn)labelToMoveTo.Content;
+                Label stolenPawn = new Label
+                {
+                    Content = aPawn
+                };
+
+                if (activePlayer.Index == 0)
+                {
+                    chessPlayers.Players[0].TakenPawns.Add(aPawn);
+                    grdPlayerOne.Children.Add(stolenPawn);
+                }
+                else
+                {
+                    chessPlayers.Players[1].TakenPawns.Add(aPawn);
+                    grdPlayerTwo.Children.Add(stolenPawn);
+                }
+            }
+        }
+
+        void ExecuteMove()
+        {
+            foreach (Control child in grdChessboard.Children)
+            {
+                Label currentLabel = (Label)child;
+                int[] currentPosition = { Grid.GetColumn(child), Grid.GetRow(child) };
+
+                if (oldPosition[0] == currentPosition[0] && oldPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = null;
+                }
+
+                if (newPosition[0] == currentPosition[0] && newPosition[1] == currentPosition[1])
+                {
+                    currentLabel.Content = selectedPawn;
+                }
+            }
+        }
+
+        #endregion
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            chessPlayers = new PlayerService();
+        }
+
         private void WdwChessgame_Loaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
@@ -220,17 +415,22 @@ namespace Chessgame
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             Player playerOne, playerTwo;
-            string PlayerOneName = txtPlayerOne.Text,
-                   PlyerTwoName = txtPlayerTwo.Text;
+            string playerOneName = txtPlayerOne.Text.Trim(),
+                   playerTwoName = txtPlayerTwo.Text.Trim();
 
-            playerOne = new Player(PlayerOneName, 0, 0);
-            playerTwo = new Player(PlyerTwoName, 1, 0);
+            playerOne = new Player(playerOneName, 0, 0);
+            playerTwo = new Player(playerTwoName, 1, 0);
+            activePlayer = playerOne;
+            currentMoveDescription = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null, null);
 
-            playerService.AddPlayer(playerOne);
-            playerService.AddPlayer(playerTwo);
+            chessPlayers.AddPlayer(playerOne);
+            chessPlayers.AddPlayer(playerTwo);
 
             lblPlayerOne.Content = playerOne.Name;
             lblPlayerTwo.Content = playerTwo.Name;
+            lblScorePlayerOne.Content = scoreString(playerOne.Score);
+            lblScorePlayerTwo.Content = scoreString(playerTwo.Score);
+            lblCurrentMove.Content = currentMoveDescription;
 
             SwitchToGrid(grdChessGame, grdStartUp);
             CreateChessboard();
@@ -239,7 +439,73 @@ namespace Chessgame
 
         private void BtnBackToMenu_Click_1(object sender, RoutedEventArgs e)
         {
+
             SwitchToGrid(grdStartUp, grdChessGame);
+
+        }
+
+        private void Pawn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Label label = sender as Label;
+
+            if (pawnSelected == false)
+            {
+                pawnSelected = CheckSelectedField(activePlayer.Color, label);
+
+                if (pawnSelected)
+                {
+                    selectedPawn = (Pawn)label.Content;
+                    labelToMove = label;
+                    oldPosition[0] = Grid.GetColumn(label);
+                    oldPosition[1] = Grid.GetRow(label);
+                    label.BorderBrush = Brushes.Red;
+                    label.BorderThickness = new Thickness(3);
+                    lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, null, selectedPawn);
+                }
+            }
+            else
+            {
+                labelToMoveTo = label;
+                newPosition[0] = Grid.GetColumn(label);
+                newPosition[1] = Grid.GetRow(label);
+                label.BorderBrush = Brushes.Green;
+                label.BorderThickness = new Thickness(3);
+                lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, labelToMove, label, selectedPawn);
+                grdChessboard.IsEnabled = false;
+            }
+        }
+
+        private void VerifyMove()
+        {
+
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            bool canMoveHere = CheckNewPosition();
+
+            VerifyMove();
+            if (canMoveHere)
+            {
+                if (labelToMoveTo.Content != null)
+                {
+                    TakePawn();
+                }
+                ExecuteMove();
+                ResetGridSelections();
+                ResetValues();
+                ChangeActivePlayer();
+
+                lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
+            }
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            ResetGridSelections();
+            ResetValues();
+
+            lblCurrentMove.Content = ManageCurrentMoveDescription(activePlayer.Name, null, null, null);
         }
     }
 

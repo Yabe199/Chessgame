@@ -52,7 +52,8 @@ namespace Chessgame
                         Height = 75,
                         Margin = new Thickness(0),
                         HorizontalContentAlignment = HorizontalAlignment.Center,
-                        VerticalContentAlignment = VerticalAlignment.Center
+                        VerticalContentAlignment = VerticalAlignment.Center,
+                        Foreground = Brushes.Aqua
                     };
 
                     label.MouseLeftButtonDown += Pawn_MouseLeftButtonDown;
@@ -105,7 +106,89 @@ namespace Chessgame
             }
         }
 
+        private void SetPawns()
+        {
+
+            int PlayerOneColour = (int)Colour.White;
+            int PlayerTwoColour = (int)Colour.Black;
+
+            //player one pieces
+            Pawn player1Pawn1 = new Pawn(0, PlayerOneColour);
+            Pawn player1Pawn2 = new Pawn(0, PlayerOneColour);
+            Pawn player1Pawn3 = new Pawn(0, PlayerOneColour);
+            Pawn player1Pawn4 = new Pawn(0, PlayerOneColour);
+            Pawn player1Pawn5 = new Pawn(0, PlayerOneColour);
+            Pawn player1Pawn6 = new Pawn(0, PlayerOneColour);
+            Pawn player1Pawn7 = new Pawn(0, PlayerOneColour);
+            Pawn player1Pawn8 = new Pawn(0, PlayerOneColour);
+
+            Pawn player1King = new Pawn(1, PlayerOneColour);
+            Pawn player1Queen = new Pawn(2, PlayerOneColour);
+            Pawn player1Horse1 = new Pawn(3, PlayerOneColour);
+            Pawn player1Horse2 = new Pawn(3, PlayerOneColour);
+            Pawn player1Tower1 = new Pawn(4, PlayerOneColour);
+            Pawn player1Tower2 = new Pawn(4, PlayerOneColour);
+            Pawn player1Bishop1 = new Pawn(5, PlayerOneColour);
+            Pawn player1Bishop2 = new Pawn(5, PlayerOneColour);
+
+            BoardSquares[0, 1].Content = player1Pawn1.ToString();
+            BoardSquares[1, 1].Content = player1Pawn2.ToString();
+            BoardSquares[2, 1].Content = player1Pawn3.ToString();
+            BoardSquares[3, 1].Content = player1Pawn4.ToString();
+            BoardSquares[4, 1].Content = player1Pawn5.ToString();
+            BoardSquares[5, 1].Content = player1Pawn6.ToString();
+            BoardSquares[6, 1].Content = player1Pawn7.ToString();
+            BoardSquares[7, 1].Content = player1Pawn8.ToString();
+
+            BoardSquares[0, 0].Content = player1Tower1.ToString();
+            BoardSquares[1, 0].Content = player1Horse1.ToString();
+            BoardSquares[2, 0].Content = player1Bishop1.ToString();
+            BoardSquares[3, 0].Content = player1King.ToString();
+            BoardSquares[4, 0].Content = player1Queen.ToString();
+            BoardSquares[5, 0].Content = player1Horse2.ToString();
+            BoardSquares[6, 0].Content = player1Bishop2.ToString();
+            BoardSquares[7, 0].Content = player1Tower2.ToString();
+
+            //player two pieces
+            Pawn player2Pawn1 = new Pawn(0, PlayerTwoColour);
+            Pawn player2Pawn2 = new Pawn(0, PlayerTwoColour);
+            Pawn player2Pawn3 = new Pawn(0, PlayerTwoColour);
+            Pawn player2Pawn4 = new Pawn(0, PlayerTwoColour);
+            Pawn player2Pawn5 = new Pawn(0, PlayerTwoColour);
+            Pawn player2Pawn6 = new Pawn(0, PlayerTwoColour);
+            Pawn player2Pawn7 = new Pawn(0, PlayerTwoColour);
+            Pawn player2Pawn8 = new Pawn(0, PlayerTwoColour);
+
+            Pawn player2King = new Pawn(1, PlayerTwoColour);
+            Pawn player2Queen = new Pawn(2, PlayerTwoColour);
+            Pawn player2Horse1 = new Pawn(3, PlayerTwoColour);
+            Pawn player2Horse2 = new Pawn(3, PlayerTwoColour);
+            Pawn player2Tower1 = new Pawn(4, PlayerTwoColour);
+            Pawn player2Tower2 = new Pawn(4, PlayerTwoColour);
+            Pawn player2Bishop1 = new Pawn(5, PlayerTwoColour);
+            Pawn player2Bishop2 = new Pawn(5, PlayerTwoColour);
+
+            BoardSquares[0, 6].Content = player2Pawn1.ToString();
+            BoardSquares[1, 6].Content = player2Pawn2.ToString();
+            BoardSquares[2, 6].Content = player2Pawn3.ToString();
+            BoardSquares[3, 6].Content = player2Pawn4.ToString();
+            BoardSquares[4, 6].Content = player2Pawn5.ToString();
+            BoardSquares[5, 6].Content = player2Pawn6.ToString();
+            BoardSquares[6, 6].Content = player2Pawn7.ToString();
+            BoardSquares[7, 6].Content = player2Pawn8.ToString();
+
+            BoardSquares[0, 7].Content = player2Tower1.ToString();
+            BoardSquares[1, 7].Content = player2Horse1.ToString();
+            BoardSquares[2, 7].Content = player2Bishop1.ToString();
+            BoardSquares[3, 7].Content = player2King.ToString();
+            BoardSquares[4, 7].Content = player2Queen.ToString();
+            BoardSquares[5, 7].Content = player2Horse2.ToString();
+            BoardSquares[6, 7].Content = player2Bishop2.ToString();
+            BoardSquares[7, 7].Content = player2Tower2.ToString();
+
+        }
         #endregion  
+
 
         public MainWindow()
         {
@@ -151,41 +234,12 @@ namespace Chessgame
 
             SwitchToGrid(grdChessGame, grdStartUp);
             CreateChessboard();
+            SetPawns();
         }
 
-        private void SetPawns()
+        private void BtnBackToMenu_Click_1(object sender, RoutedEventArgs e)
         {
-
-            string PlayerOneColour = "white";
-            string PlayerTwoColour = "black";
-
-            //player one pawns
-            Pawn player1Pawn1 = new Pawn(0, PlayerOneColour);
-            Pawn player1pawn2 = new Pawn(0, PlayerOneColour);
-            Pawn player1pawn3 = new Pawn(0, PlayerOneColour);
-            Pawn player1pawn4 = new Pawn(0, PlayerOneColour);
-            Pawn player1pawn5 = new Pawn(0, PlayerOneColour);
-            Pawn player1pawn6 = new Pawn(0, PlayerOneColour);
-            Pawn player1pawn7 = new Pawn(0, PlayerOneColour);
-            Pawn player1pawn8 = new Pawn(0, PlayerOneColour);
-
-            Pawn player1King = new Pawn(2, PlayerOneColour);
-            Pawn player1Queen = new Pawn(3, PlayerOneColour);
-
-            //player two pawns
-
-            Pawn player2pawn1 = new Pawn(0, PlayerTwoColour);
-            Pawn player2pawn2 = new Pawn(0, PlayerTwoColour);
-            Pawn player2pawn3 = new Pawn(0, PlayerTwoColour);
-            Pawn player2pawn4 = new Pawn(0, PlayerTwoColour);
-            Pawn player2pawn5 = new Pawn(0, PlayerTwoColour);
-            Pawn player2pawn6 = new Pawn(0, PlayerTwoColour);
-            Pawn player2pawn7 = new Pawn(0, PlayerTwoColour);
-            Pawn player2pawn8 = new Pawn(0, PlayerTwoColour);
-                  
-
-
-
+            SwitchToGrid(grdStartUp, grdChessGame);
         }
     }
 

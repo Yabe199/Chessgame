@@ -9,6 +9,9 @@ using System.Windows;
 
 namespace Chessgame.Lib.Entities
 {
+            //TODO
+            // add movement restrictions
+
 
     public class Pawn
     {
@@ -18,22 +21,25 @@ namespace Chessgame.Lib.Entities
         public PawnType pawnType { get; set; }
         public String avatar { get; set; }
         public Point location { get; set; }
-        //public PawnMove moveset { get; set; }
+        //public PawnMove Moveset { get; set; }
 
         #endregion
 
+
         #region Constructor
-        public Pawn(int pawnTypeParam, string kleur)
+        public Pawn(int pawnTypeParam, int kleur)
+             
         {
             turn = false;
             avatar = AppDomain.CurrentDomain.BaseDirectory + "/images/";
             //location = new Point(0, 0);
+            
             //set colour of pawn
-            if (kleur == "Black")
+            if (kleur == 0)
             {
                 pawnColour = Colour.Black;
             }
-            else if (kleur == "White")
+            else if (kleur == 1)
             {
                 pawnColour = Colour.White;
             }
@@ -46,7 +52,7 @@ namespace Chessgame.Lib.Entities
             if (pawnTypeParam == 0)
             {
                 pawnType = PawnType.Pawn;
-                if (kleur == "Black")
+                if (kleur == 0)
                 {
                     avatar = "Pawnblack" ;
                 }
@@ -56,7 +62,7 @@ namespace Chessgame.Lib.Entities
             else if (pawnTypeParam == 1)
             {
                 pawnType = PawnType.King;
-                if (kleur == "Black")
+                if (kleur == 0)
                 {
                     avatar += "Kingblack";
                 }
@@ -66,7 +72,7 @@ namespace Chessgame.Lib.Entities
             else if (pawnTypeParam == 2)
             {
                 pawnType = PawnType.Queen;
-                if (kleur == "Black")
+                if (kleur == 0)
                 {
                     avatar += "Queenblack";
                 }
@@ -76,7 +82,7 @@ namespace Chessgame.Lib.Entities
             else if (pawnTypeParam == 3)
             {
                 pawnType = PawnType.Horse;
-                if (kleur == "Black")
+                if (kleur == 0)
                 {
                     avatar += "Horseblack";
                 }
@@ -86,27 +92,34 @@ namespace Chessgame.Lib.Entities
             else if (pawnTypeParam == 4)
             {
                 pawnType = PawnType.Tower;
-                if (kleur == "Black")
+                if (kleur == 0)
                 {
                     avatar += "Towerblack";
                 }
                 avatar = "Towerwhite";
                 //moveset = PawnMove.Tower;
             }
-            else if (pawnTypeParam == 1)
+            else if (pawnTypeParam == 5)
             {
                 pawnType = PawnType.Bishop;
-                if (kleur == "Black")
+
+                if (kleur == 0)
                 {
                     avatar += "Bishopblack";
                 }
                 avatar += "Bishopwhite";
                 //moveset = PawnMove.Bishop;
+
             }
 
             #endregion
 
+        }
 
+        public override string ToString()
+        {
+            string visualisationPawn = pawnType.ToString() + pawnColour.ToString();
+            return visualisationPawn;
         }
     }
 }

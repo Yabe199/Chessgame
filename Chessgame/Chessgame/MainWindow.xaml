@@ -19,6 +19,7 @@
             <Rectangle HorizontalAlignment="Left" Height="600" Margin="285,125,0,0" VerticalAlignment="Top" Width="600" Stroke="Black"/>
             <Label x:Name="lblPlayerOne" Content="Player One" HorizontalAlignment="Center" Height="30" Margin="0,0,900,575" VerticalAlignment="Center" Width="250"/>
             <Label x:Name="lblPlayerTwo" Content="Player Two" HorizontalAlignment="Center" Height="30" Margin="900,0,0,575" VerticalAlignment="Center" Width="250"/>
+            <Button x:Name="btnBackToMenu" Content="Back to menu" HorizontalAlignment="Left" Height="29" Margin="912,761,0,0" VerticalAlignment="Top" Width="130" Click="BtnBackToMenu_Click_1"/>
             <Grid HorizontalAlignment="Center" Height="50" Margin="0,700,0,0" VerticalAlignment="Center" Width="600">
                 <Grid.Background>
                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.AppWorkspaceColorKey}}"/>

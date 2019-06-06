@@ -9,6 +9,7 @@ namespace Chessgame.Lib.Services
 {
     public class PlayerService
     {
+        // TODO public List<Player> Players { get; set; }
         public Player[] Players { get; set; }
 
         public PlayerService()
